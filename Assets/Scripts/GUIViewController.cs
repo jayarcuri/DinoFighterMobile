@@ -50,7 +50,7 @@ public class GUIViewController : MonoBehaviour
 		MatchHistoryOverlay.anchoredPosition = 
 			MHO_Homepoint = new Vector2 (-MatchHistoryOverlay.rect.width, 0);
 		print (MoveSelectionOverlay.anchoredPosition.x);
-		MHO_Screenpoint = new Vector2 (Screen.width - MatchHistoryOverlay.rect.size.x, 0);
+		MHO_Screenpoint = new Vector2 (Screen.width - MatchHistoryOverlay.anchoredPosition.x, 0);
 	}
 
 	void Update(){
@@ -80,9 +80,10 @@ public class GUIViewController : MonoBehaviour
 				    (previousTouchLocation.x - Input.mousePosition.x) <= MHO_Homepoint.x){	// past left edge
 					MatchHistoryOverlay.anchoredPosition = MHO_Homepoint;}
 				
-				else if (Input.mousePosition.x != previousTouchLocation.x) {
-					MatchHistoryOverlay.anchoredPosition = new Vector2 (MatchHistoryOverlay.anchoredPosition.x - 
-					                                                     (previousTouchLocation.x - Input.mousePosition.x), 0);
+				if (Input.mousePosition.x != previousTouchLocation.x) {
+					MatchHistoryOverlay.anchoredPosition 
+						= new Vector2 (Mathf.Clamp(MatchHistoryOverlay.anchoredPosition.x - 
+							(previousTouchLocation.x - Input.mousePosition.x), MHO_Homepoint.x, 0), 0);
 				}
 			}	// Block end 
 			previousTouchLocation = (Vector2)Input.mousePosition;
@@ -92,7 +93,11 @@ public class GUIViewController : MonoBehaviour
 		if (Input.GetMouseButtonUp (0)) {
 			initialTouchLocation = Vector2.zero;
 			previousTouchLocation = Vector2.zero;
-			TouchEndedAt = new Vector2(Input.mousePosition.x, 0);
+			if (MoveSelectionOverlay.anchoredPosition.x < RightSideAnchor.x)
+				TouchEndedAt = new Vector2(MoveSelectionOverlay.anchoredPosition.x, 0);
+			if(MatchHistoryOverlay.anchoredPosition.x > MHO_Homepoint.x)
+				TouchEndedAt = new Vector2(MatchHistoryOverlay.anchoredPosition.x, 0);
+
 			animationStart = Time.time;
 		}
 
@@ -100,16 +105,16 @@ public class GUIViewController : MonoBehaviour
 			if (MoveSelectionOverlay.anchoredPosition.x < RightSideAnchor.x){
 				//float fracJourney = distCovered / .5f;
 				if(MoveSelectionOverlay.anchoredPosition.x < MiddlePoint.x)
-					MoveSelectionOverlay.anchoredPosition = Vector2.Lerp(TouchEndedAt, LeftSideAnchor, Mathf.Clamp(((Time.time-animationStart)/.5f), 0, 1));
+					MoveSelectionOverlay.anchoredPosition = Vector2.Lerp(TouchEndedAt, LeftSideAnchor, Mathf.Clamp(((Time.time-animationStart)/.25f), 0, 1));
 				if(MoveSelectionOverlay.anchoredPosition.x >= MiddlePoint.x)
-					MoveSelectionOverlay.anchoredPosition = Vector2.Lerp(TouchEndedAt, RightSideAnchor, Mathf.Clamp(((Time.time-animationStart)/.5f), 0, 1));
+					MoveSelectionOverlay.anchoredPosition = Vector2.Lerp(TouchEndedAt, RightSideAnchor, Mathf.Clamp(((Time.time-animationStart)/.25f), 0, 1));
 			}
 
-			if (MatchHistoryOverlay.anchoredPosition.x < MHO_Homepoint.x){
-				if(MatchHistoryOverlay.anchoredPosition.x > MiddlePoint.x)
-					MatchHistoryOverlay.anchoredPosition = Vector2.Lerp(TouchEndedAt, MHO_Screenpoint, Mathf.Clamp(((Time.time-animationStart)/.5f), 0, 1));
-				if(MatchHistoryOverlay.anchoredPosition.x <= MiddlePoint.x)
-					MatchHistoryOverlay.anchoredPosition = Vector2.Lerp(TouchEndedAt, MHO_Homepoint, Mathf.Clamp(((Time.time-animationStart)/.5f), 0, 1));
+			if (MatchHistoryOverlay.anchoredPosition.x > MHO_Homepoint.x){
+				if(MatchHistoryOverlay.anchoredPosition.x > MHO_Homepoint.x/2)
+					MatchHistoryOverlay.anchoredPosition = Vector2.Lerp(TouchEndedAt, Vector2.zero, Mathf.Clamp(((Time.time-animationStart)/.25f), 0, 1));
+				if(MatchHistoryOverlay.anchoredPosition.x <= MHO_Homepoint.x/2)
+					MatchHistoryOverlay.anchoredPosition = Vector2.Lerp(TouchEndedAt, MHO_Homepoint, Mathf.Clamp(((Time.time-animationStart)/.25f), 0, 1));
 			}
 
 		}
@@ -119,9 +124,7 @@ public class GUIViewController : MonoBehaviour
 	}
 
 	private bool AreOverlaysOnscreen(){
-		bool toRet = (MatchHistoryOverlay.anchoredPosition.x > MHO_Homepoint.x
-		              || MoveSelectionOverlay.anchoredPosition.x < RightSideAnchor.x);
-		print (toRet);
-		return toRet;
+			return (MatchHistoryOverlay.anchoredPosition.x > MHO_Homepoint.x
+			        || MoveSelectionOverlay.anchoredPosition.x < RightSideAnchor.x);
 	}
 }
