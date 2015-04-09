@@ -18,7 +18,6 @@ public class GUIViewController : MonoBehaviour
 	Vector2 LeftSideAnchor;		//Following variables used in GUI move animations
 	Vector2 RightSideAnchor;
 	Vector2 MHO_Homepoint;
-	Vector2 MHO_Screenpoint;
 	Vector2 StartPoint;
 	Vector2 MiddlePoint;
 	float animationStart;
@@ -49,8 +48,6 @@ public class GUIViewController : MonoBehaviour
 		MiddlePoint = new Vector3 (Screen.width / 2, Screen.height / 2);
 		MatchHistoryOverlay.anchoredPosition = 
 			MHO_Homepoint = new Vector2 (-MatchHistoryOverlay.rect.width, 0);
-		print (MoveSelectionOverlay.anchoredPosition.x);
-		MHO_Screenpoint = new Vector2 (Screen.width - MatchHistoryOverlay.anchoredPosition.x, 0);
 	}
 
 	void Update(){
@@ -103,7 +100,6 @@ public class GUIViewController : MonoBehaviour
 
 		if (!Input.GetMouseButton (0)) {
 			if (MoveSelectionOverlay.anchoredPosition.x < RightSideAnchor.x){
-				//float fracJourney = distCovered / .5f;
 				if(MoveSelectionOverlay.anchoredPosition.x < MiddlePoint.x)
 					MoveSelectionOverlay.anchoredPosition = Vector2.Lerp(TouchEndedAt, LeftSideAnchor, Mathf.Clamp(((Time.time-animationStart)/.25f), 0, 1));
 				if(MoveSelectionOverlay.anchoredPosition.x >= MiddlePoint.x)

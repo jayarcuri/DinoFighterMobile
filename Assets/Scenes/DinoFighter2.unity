@@ -757,7 +757,7 @@ RectTransform:
   m_Father: {fileID: 620741319}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: .100000001, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 3.05175781e-05}
   m_Pivot: {x: 1, y: .5}
