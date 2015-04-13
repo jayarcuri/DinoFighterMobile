@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using GooglePlayGames;
 
 public class GUIViewController : MonoBehaviour
 {
@@ -118,7 +119,11 @@ public class GUIViewController : MonoBehaviour
 
 
 	}
-
+	
+	void OnGUI() {
+		MultiplayerController.Instance.SignInAndStartMPGame();
+	}
+	
 	private bool AreOverlaysOnscreen(){
 			return (MatchHistoryOverlay.anchoredPosition.x > MHO_Homepoint.x
 			        || MoveSelectionOverlay.anchoredPosition.x < RightSideAnchor.x);

@@ -36,4 +36,18 @@ public class MultiplayerController {
 		}
 	}
 	
+	public void TrySilentSignIn() {
+		if (! PlayGamesPlatform.Instance.localUser.authenticated) {
+			PlayGamesPlatform.Instance.Authenticate ((bool success) => {
+				if (success) {
+					Debug.Log ("Silently signed in! Welcome " + PlayGamesPlatform.Instance.localUser.userName);
+				} else {
+					Debug.Log ("Oh... we're not signed in.");
+				}
+			}, true);
+		} else {
+			Debug.Log("We're already signed in");
+		}
+	}
+	
 }
