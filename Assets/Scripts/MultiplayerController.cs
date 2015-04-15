@@ -6,6 +6,10 @@ public class MultiplayerController {
 
 	private static MultiplayerController _instance = null;
 	
+	const int MinOpponents = 1;
+	const int MaxOpponents = 1;
+	const int Variant = 0;
+	
 	private MultiplayerController() {
 		PlayGamesPlatform.DebugLogEnabled = true;
 		PlayGamesPlatform.Activate ();
@@ -25,6 +29,8 @@ public class MultiplayerController {
 			PlayGamesPlatform.Instance.localUser.Authenticate((bool success) => {
 				if (success) {
 					Debug.Log ("We're signed in! Welcome " + PlayGamesPlatform.Instance.localUser.userName);
+					PlayGamesPlatform.Instance.TurnBased.CreateQuickMatch(MinOpponents, MaxOpponents,
+					                                                      Variant, OnMatchStarted);
 					// We could start our game now
 				} else {
 					Debug.Log ("Oh... we're not signed in.");
@@ -47,6 +53,14 @@ public class MultiplayerController {
 			}, true);
 		} else {
 			Debug.Log("We're already signed in");
+		}
+	}
+	
+	void OnMatchStarted(bool success, TurnBasedMatch match) {
+		if (success) {
+			// go to the game screen and play!
+		} else {
+			// show error message
 		}
 	}
 	

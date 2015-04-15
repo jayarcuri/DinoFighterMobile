@@ -121,7 +121,7 @@ public class GUIViewController : MonoBehaviour
 	}
 	
 	void OnGUI() {
-		MultiplayerController.Instance.SignInAndStartMPGame();
+		MultiplayerController.Instance.TrySilentSignIn();
 	}
 	
 	private bool AreOverlaysOnscreen(){
