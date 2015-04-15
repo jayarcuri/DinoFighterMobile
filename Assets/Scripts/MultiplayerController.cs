@@ -60,6 +60,7 @@ public class MultiplayerController {
 	void OnMatchStarted(bool success, TurnBasedMatch match) {
 		if (success) {
 			Application.LoadLevel("DinoFighter2");
+//			PlayGamesPlatform.Instance.
 		} else {
 			// show error message
 		}
