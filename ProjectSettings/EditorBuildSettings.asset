@@ -13,3 +13,9 @@ EditorBuildSettings:
     path: Assets/Startup scene.unity
   - enabled: 1
     path: Assets/Scenes/DinoFighter2.unity
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+  - enabled: 1
+    path: Assets/Scenes/PlayMenu.unity
+  - enabled: 1
+    path: Assets/Scenes/Settings.unity

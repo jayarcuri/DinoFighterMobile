@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using GooglePlayGames;
 
 public class MainMenu : MonoBehaviour {
 
 	// Use this for initialization
-	void Start () {
-	
+	void Awake () {
+		MultiplayerController.Instance.TrySilentSignIn();
 	}
 	
 	// Update is called once per frame
@@ -13,11 +14,11 @@ public class MainMenu : MonoBehaviour {
 	
 	}
 	
-	void play() {
+	public void play() {
 		Application.LoadLevel("PlayMenu");
 	}
 	
-	void settings() {
+	public void settings() {
 		Application.LoadLevel("Settings");
 	}
 }

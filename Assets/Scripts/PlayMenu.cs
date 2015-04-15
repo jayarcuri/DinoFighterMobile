@@ -8,8 +8,21 @@ public class PlayMenu : MonoBehaviour {
 	
 	}
 	
+	void Awake () {
+		MultiplayerController.Instance.TrySilentSignIn();
+	}
+	
 	// Update is called once per frame
 	void Update () {
+	
+	}
+	
+	public void quickPlay() {
+		MultiplayerController.Instance.SignInAndStartMPGame();
+		Application.LoadLevel("DinoFighter2");
+	}
+	
+	public void friendPlay() {
 	
 	}
 }
