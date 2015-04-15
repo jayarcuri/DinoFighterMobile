@@ -6,8 +6,8 @@ public class MultiplayerController {
 
 	private static MultiplayerController _instance = null;
 	
-	const int MinOpponents = 1;
-	const int MaxOpponents = 1;
+	const int MinOpponents = 2;
+	const int MaxOpponents = 2;
 	const int Variant = 0;
 	
 	private MultiplayerController() {
@@ -43,6 +43,20 @@ public class MultiplayerController {
 		}
 	}
 	
+	public void TrySignIn() {
+		if (! PlayGamesPlatform.Instance.localUser.authenticated) {
+			PlayGamesPlatform.Instance.localUser.Authenticate ((bool success) => {
+				if (success) {
+					Debug.Log ("Signed in! Welcome " + PlayGamesPlatform.Instance.localUser.userName);
+				} else {
+					Debug.Log ("Oh... we're not signed in.");
+				}
+			});
+		} else {
+			Debug.Log("We're already signed in");
+		}
+	}
+	
 	public void TrySilentSignIn() {
 		if (! PlayGamesPlatform.Instance.localUser.authenticated) {
 			PlayGamesPlatform.Instance.Authenticate ((bool success) => {
@@ -59,6 +73,7 @@ public class MultiplayerController {
 	
 	void OnMatchStarted(bool success, TurnBasedMatch match) {
 		if (success) {
+			Debug.Log ("Match Started");
 			Application.LoadLevel("DinoFighter2");
 //			PlayGamesPlatform.Instance.
 		} else {

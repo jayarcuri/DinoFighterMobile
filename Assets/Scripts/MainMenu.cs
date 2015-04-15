@@ -6,7 +6,7 @@ public class MainMenu : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-		MultiplayerController.Instance.TrySilentSignIn();
+		MultiplayerController.Instance.TrySignIn();
 	}
 	
 	// Update is called once per frame
