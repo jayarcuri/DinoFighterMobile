@@ -17,9 +17,12 @@ public class PlayMenu : MonoBehaviour {
 	
 	}
 	
-	public void quickPlay() {
-		MultiplayerController.Instance.SignInAndStartMPGame();
+	public void aiPlay() {
 		Application.LoadLevel("DinoFighter2");
+	}
+	
+	public void quickPlay() {
+		MultiplayerController.Instance.SignInAndStartQuickGame();
 	}
 	
 	public void friendPlay() {

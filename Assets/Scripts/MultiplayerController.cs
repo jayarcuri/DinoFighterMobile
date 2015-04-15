@@ -24,7 +24,7 @@ public class MultiplayerController {
 		}
 	}
 	
-	public void SignInAndStartMPGame() {
+	public void SignInAndStartQuickGame() {
 		if (! PlayGamesPlatform.Instance.localUser.authenticated) {
 			PlayGamesPlatform.Instance.localUser.Authenticate((bool success) => {
 				if (success) {
@@ -38,7 +38,8 @@ public class MultiplayerController {
 			});
 		} else {
 			Debug.Log ("You're already signed in.");
-			// We could also start our game now
+			PlayGamesPlatform.Instance.TurnBased.CreateQuickMatch(MinOpponents, MaxOpponents,
+			                                                      Variant, OnMatchStarted);
 		}
 	}
 	
@@ -58,7 +59,7 @@ public class MultiplayerController {
 	
 	void OnMatchStarted(bool success, TurnBasedMatch match) {
 		if (success) {
-			// go to the game screen and play!
+			Application.LoadLevel("DinoFighter2");
 		} else {
 			// show error message
 		}
