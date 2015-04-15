@@ -332,7 +332,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &223923494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,7 +458,7 @@ GameObject:
   - 114: {fileID: 305979186}
   m_Layer: 5
   m_Name: Dodge
-  m_TagString: Untagged
+  m_TagString: Moves
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1173,7 +1173,7 @@ GameObject:
   - 114: {fileID: 862360086}
   m_Layer: 5
   m_Name: Throw
-  m_TagString: Untagged
+  m_TagString: Moves
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1483,7 +1483,7 @@ GameObject:
   - 114: {fileID: 1138616725}
   m_Layer: 5
   m_Name: Super
-  m_TagString: Untagged
+  m_TagString: Moves
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1610,7 +1610,7 @@ GameObject:
   - 114: {fileID: 1155860552}
   m_Layer: 5
   m_Name: Attack
-  m_TagString: Untagged
+  m_TagString: Moves
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1866,6 +1866,7 @@ GameObject:
   - 81: {fileID: 1317055949}
   - 114: {fileID: 1317055954}
   - 114: {fileID: 1317055955}
+  - 114: {fileID: 1317055956}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1972,6 +1973,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   super: {fileID: 1138616725}
   burst: {fileID: 1644541901}
+--- !u!114 &1317055956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1317055948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d796ca96d8fa4e72a51ef4ea7f27391, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nonselectedColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1358450517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2443,7 +2456,7 @@ GameObject:
   - 114: {fileID: 1644541901}
   m_Layer: 5
   m_Name: Burst
-  m_TagString: Untagged
+  m_TagString: Moves
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2792,7 +2805,7 @@ GameObject:
   - 114: {fileID: 2053162349}
   m_Layer: 5
   m_Name: Defend
-  m_TagString: Untagged
+  m_TagString: Moves
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
