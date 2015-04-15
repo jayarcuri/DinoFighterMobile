@@ -37,6 +37,7 @@ public class GUIViewController : MonoBehaviour
 		MHO_Gameobj = GameObject.Find ("MatchHistoryOverlay");
 		MoveSelectionOverlay = MSO_Gameobj.GetComponent<RectTransform> ();
 		MatchHistoryOverlay = MHO_Gameobj.GetComponent<RectTransform> ();
+		MultiplayerController.Instance.TrySilentSignIn();
 	}
 
 	void Start(){
@@ -121,7 +122,7 @@ public class GUIViewController : MonoBehaviour
 	}
 	
 	void OnGUI() {
-		MultiplayerController.Instance.TrySilentSignIn();
+		
 	}
 	
 	private bool AreOverlaysOnscreen(){
