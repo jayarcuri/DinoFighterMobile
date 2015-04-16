@@ -28,4 +28,8 @@ public class PlayMenu : MonoBehaviour {
 	public void friendPlay() {
 	
 	}
+	
+	public void localPlay() {
+		Application.LoadLevel("DinoFighter2");
+	}
 }
