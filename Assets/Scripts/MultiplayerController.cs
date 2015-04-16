@@ -1,5 +1,7 @@
 ﻿using GooglePlayGames;
+using GooglePlayGames.BasicApi;
 using GooglePlayGames.BasicApi.Multiplayer;
+using GooglePlayGames.BasicApi.SavedGame;
 using UnityEngine;
 
 public class MultiplayerController {
@@ -10,7 +12,19 @@ public class MultiplayerController {
 	const int MaxOpponents = 2;
 	const int Variant = 0;
 	
+	private TurnBasedMatch mIncomingMatch;
+	
 	private MultiplayerController() {
+		PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
+			// enables saving game progress.
+			.EnableSavedGames()
+				// registers a callback to handle game invitations received while the game is not running.
+				.WithInvitationDelegate(OnInvitationReceived)
+				// registers a callback for turn based match notifications received while the
+				// game is not running.
+				.WithMatchDelegate(OnGotMatch)
+				.Build();
+		PlayGamesPlatform.InitializeInstance(config);
 		PlayGamesPlatform.DebugLogEnabled = true;
 		PlayGamesPlatform.Activate ();
 	}
@@ -81,4 +95,42 @@ public class MultiplayerController {
 		}
 	}
 	
+	public void OnInvitationReceived(Invitation invitation, bool shouldAutoAccept) {
+	}
+	
+	void OnGotMatch(TurnBasedMatch match, bool shouldAutoLaunch) {
+		if (shouldAutoLaunch) {
+			// if shouldAutoLaunch is true, we know the user has indicated (via an external UI)
+			// that they wish to play this match right now, so we take the user to the
+			// game screen without further delay:
+			OnMatchStarted(true, match);
+		} else {
+			// if shouldAutoLaunch is false, this means it's not clear that the user
+			// wants to jump into the game right away (for example, we might have received
+			// this match from a background push notification). So, instead, we will
+			// calmly hold on to the match and show a prompt so they can decide
+			mIncomingMatch = match;
+		}
+	}
+	
+	public void ShowSelectUI() {
+		uint maxNumToDisplay = 5;
+		bool allowCreateNew = false;
+		bool allowDelete = true;
+		
+		ISavedGameClient savedGameClient = PlayGamesPlatform.Instance.SavedGame;
+		savedGameClient.ShowSelectSavedGameUI("Select saved game",
+		                                      maxNumToDisplay,
+		                                      allowCreateNew,
+		                                      allowDelete,
+		                                      OnSavedGameSelected);
+	}
+	
+	void OnSavedGameSelected (SelectUIStatus status, ISavedGameMetadata game) {
+		if (status == SelectUIStatus.SavedGameSelected) {
+			Debug.Log("Game loaded");
+		} else {
+			Debug.Log("????"+status);
+		}
+	}
 }

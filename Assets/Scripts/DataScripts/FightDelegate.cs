@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine.UI;
 
-public class FightDelegate : MonoBehaviour {
+[Serializable]
+public class FightDelegate : MonoBehaviour{
 
 	Character[] Fighters;
 	string MoveForCurrentTurn;
@@ -16,6 +19,18 @@ public class FightDelegate : MonoBehaviour {
 	public Text OperatorText;
 	public Image[] MoveIconsForHistory;
 	Image[] CurrentMoveIcons;
+	
+//	public FightDelegate() {
+//	
+//	}
+	
+	public static FightDelegate FromByteArray(Byte[] array) {
+		return null;
+	}
+	
+	public static byte[] ToByteArray( FightDelegate bundle) {
+		return null;
+	}
 
 	void Start(){
 		Fighters = new Character[2];
