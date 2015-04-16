@@ -180,6 +180,8 @@ public class GUIViewController : MonoBehaviour
 	}
 
 	IEnumerator LerpInLastClash(){
+		if (Screen.width != RightSideAnchor.x)
+			RightSideAnchor = new Vector2 (Screen.width, 0);
 		float startTime = Time.time;
 		MHO_Gameobj.SetActive (true);
 		while (Time.time < 0.25f+startTime) {
@@ -202,10 +204,11 @@ public class GUIViewController : MonoBehaviour
 		MoveSelectionOverlay.anchoredPosition = MHO_Homepoint;
 		NavButtonFrame.anchoredPosition = NavButtonHome;
 		MHO_Gameobj.SetActive (false);
-
 	}
 
 	IEnumerator LerpHistoryFromMoves(){
+		if (Screen.width != RightSideAnchor.x)
+			RightSideAnchor = new Vector2 (Screen.width, 0);
 		float startTime = Time.time;
 		MHO_Gameobj.SetActive (true);
 		while (Time.time < 0.25f+startTime) {
