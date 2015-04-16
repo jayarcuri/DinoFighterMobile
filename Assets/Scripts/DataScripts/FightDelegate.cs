@@ -20,10 +20,6 @@ public class FightDelegate : MonoBehaviour{
 	public Image[] MoveIconsForHistory;
 	Image[] CurrentMoveIcons;
 	
-//	public FightDelegate() {
-//	
-//	}
-	
 	public static FightDelegate FromByteArray(Byte[] array) {
 		return null;
 	}
