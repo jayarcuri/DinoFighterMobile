@@ -7,12 +7,13 @@ public class GUIViewController : MonoBehaviour
 {
 	public Button super;
 	public Button burst;
+	public RectTransform NavButtonFrame;
 	private Vector2 initialTouchLocation;
 	Vector2 previousTouchLocation;
 	Vector2 TouchEndedAt;
 
-	GameObject MSO_Gameobj;
-	GameObject MHO_Gameobj;
+	public GameObject MSO_Gameobj;
+	public GameObject MHO_Gameobj;
 	RectTransform MoveSelectionOverlay;
 	RectTransform MatchHistoryOverlay;
 
@@ -20,41 +21,46 @@ public class GUIViewController : MonoBehaviour
 	Vector2 RightSideAnchor;
 	Vector2 MHO_Homepoint;
 	Vector2 StartPoint;
+	Vector2 NavButtonHome;
 	Vector2 MiddlePoint;
+	Vector2 NavButtonOffscreen;
 	float animationStart;
 	float journeyLength;
 
 	public void SetView(Character character){
-
-		print ("Burst: " + character.HasBurst ().ToString() );
-		print ("Meter is 10: " + (character.GetMeter () > 9).ToString() );
 		burst.interactable = character.HasBurst ();
 		super.interactable = (character.GetMeter () > 9);
 	}
 
 	void Awake(){
-		MSO_Gameobj = GameObject.Find ("MoveSelectionOverlay");
-		MHO_Gameobj = GameObject.Find ("MatchHistoryOverlay");
 		MoveSelectionOverlay = MSO_Gameobj.GetComponent<RectTransform> ();
 		MatchHistoryOverlay = MHO_Gameobj.GetComponent<RectTransform> ();
 		MultiplayerController.Instance.TrySilentSignIn();
 	}
 
 	void Start(){
-		MSO_Gameobj.SetActive (true);
-		MHO_Gameobj.SetActive (true);
-		print (Screen.width);
+		//MSO_Gameobj.SetActive (true);
+		//MHO_Gameobj.SetActive (true);
 		MoveSelectionOverlay.anchoredPosition = new Vector2(Screen.width, 0);
 		LeftSideAnchor = new Vector2 (0f, 0);
 		RightSideAnchor = new Vector2 (Screen.width, 0);
+		NavButtonHome = new Vector2 (NavButtonFrame.anchoredPosition.x, NavButtonFrame.anchoredPosition.y);
 		MiddlePoint = new Vector3 (Screen.width / 2, Screen.height / 2);
 		MatchHistoryOverlay.anchoredPosition = 
-			MHO_Homepoint = new Vector2 (-MatchHistoryOverlay.rect.width, 0);
+		MHO_Homepoint = new Vector2 (-MatchHistoryOverlay.rect.width, 0);
+
+		//no slide UI stuff
+		MSO_Gameobj.SetActive (false);
+		MHO_Gameobj.SetActive (false);
+		NavButtonOffscreen = new Vector2(0, -NavButtonFrame.rect.height);
+		
 	}
 
 	void Update(){
 
-		if (Input.GetMouseButtonDown (0)) {
+
+
+		/*	if (Input.GetMouseButtonDown (0)) {
 			initialTouchLocation = (Vector2)Input.mousePosition;
 			previousTouchLocation = (Vector2)Input.mousePosition;
 		}
@@ -115,18 +121,106 @@ public class GUIViewController : MonoBehaviour
 					MatchHistoryOverlay.anchoredPosition = Vector2.Lerp(TouchEndedAt, MHO_Homepoint, Mathf.Clamp(((Time.time-animationStart)/.25f), 0, 1));
 			}
 
-		}
+		}*/
 
 
 
-	}
-	
-	void OnGUI() {
-		
 	}
 	
 	private bool AreOverlaysOnscreen(){
 			return (MatchHistoryOverlay.anchoredPosition.x > MHO_Homepoint.x
 			        || MoveSelectionOverlay.anchoredPosition.x < RightSideAnchor.x);
 	}
+
+	public void SummonMoves(){
+		StartCoroutine(LerpInMoves());
+	}
+
+	public void SummonMainFromMoves(){
+		StartCoroutine (LerpInMainFromMoves ());
+	}
+
+	public void SummonHistory(){
+		StartCoroutine (LerpInLastClash ());
+	}
+
+	public void SummonMainFromHistory(){
+		StartCoroutine (LerpInMainFromHistory ());
+	}
+
+	public void SummonHistoryFromMoves(){
+		StartCoroutine(LerpHistoryFromMoves());
+	}
+
+	IEnumerator LerpInMoves(){
+		MSO_Gameobj.SetActive (true);
+		print ("Coroute started");
+		float startTime = Time.time;
+
+		while (Time.time < 0.25f+startTime) {
+			MoveSelectionOverlay.anchoredPosition = Vector2.Lerp(RightSideAnchor, LeftSideAnchor, (Time.time-startTime)/.25f);
+			NavButtonFrame.anchoredPosition = Vector2.Lerp (NavButtonHome, NavButtonOffscreen, (Time.time-startTime)/.25f);
+			yield return null;
+		}
+		MoveSelectionOverlay.anchoredPosition = LeftSideAnchor;
+		NavButtonFrame.anchoredPosition = NavButtonOffscreen;
+	}
+
+	IEnumerator LerpInMainFromMoves(){
+		float startTime = Time.time;
+		
+		while (Time.time < 0.25f+startTime) {
+			MoveSelectionOverlay.anchoredPosition = Vector2.Lerp(LeftSideAnchor, RightSideAnchor, (Time.time-startTime)/.25f);
+			NavButtonFrame.anchoredPosition = Vector2.Lerp ( NavButtonOffscreen, NavButtonHome, (Time.time-startTime)/.25f);
+			yield return null;
+		}
+		MoveSelectionOverlay.anchoredPosition = RightSideAnchor;
+		NavButtonFrame.anchoredPosition = NavButtonHome;
+		MSO_Gameobj.SetActive (false);
+	}
+
+	IEnumerator LerpInLastClash(){
+		float startTime = Time.time;
+		MHO_Gameobj.SetActive (true);
+		while (Time.time < 0.25f+startTime) {
+			MatchHistoryOverlay.anchoredPosition = Vector2.Lerp(MHO_Homepoint, Vector2.zero, (Time.time-startTime)/.25f);
+			NavButtonFrame.anchoredPosition = Vector2.Lerp (NavButtonHome, NavButtonOffscreen, (Time.time-startTime)/.25f);
+			yield return null;
+		}
+		MoveSelectionOverlay.anchoredPosition = Vector2.zero;
+		NavButtonFrame.anchoredPosition = NavButtonOffscreen;
+	}
+
+	IEnumerator LerpInMainFromHistory(){
+		float startTime = Time.time;
+		
+		while (Time.time < 0.25f+startTime) {
+			MatchHistoryOverlay.anchoredPosition = Vector2.Lerp(Vector2.zero, MHO_Homepoint, (Time.time-startTime)/.25f);
+			NavButtonFrame.anchoredPosition = Vector2.Lerp (NavButtonOffscreen, NavButtonHome, (Time.time-startTime)/.25f);
+			yield return null;
+		}
+		MoveSelectionOverlay.anchoredPosition = MHO_Homepoint;
+		NavButtonFrame.anchoredPosition = NavButtonHome;
+		MHO_Gameobj.SetActive (false);
+
+	}
+
+	IEnumerator LerpHistoryFromMoves(){
+		float startTime = Time.time;
+		MHO_Gameobj.SetActive (true);
+		while (Time.time < 0.25f+startTime) {
+			MoveSelectionOverlay.anchoredPosition = Vector2.Lerp(LeftSideAnchor, RightSideAnchor, (Time.time-startTime)/.25f);
+			MatchHistoryOverlay.anchoredPosition = Vector2.Lerp(MHO_Homepoint, Vector2.zero, (Time.time-startTime)/.25f);
+			yield return null;
+		}
+		MoveSelectionOverlay.anchoredPosition = RightSideAnchor;
+		MSO_Gameobj.SetActive (false);
+		MatchHistoryOverlay.anchoredPosition = Vector2.zero;
+	}
+
+
+
 }
+
+
+ 

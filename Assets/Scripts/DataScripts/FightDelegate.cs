@@ -8,30 +8,40 @@ public class FightDelegate : MonoBehaviour {
 	string MoveForCurrentTurn;
 	Move[] Moves;
 	int Turn;
+	public CharacterStatusVC[] characterGUI;
 	public GUIViewController MyGUI;
 	public bool testing;
-	public Text TurnText;
-	public Text[] HealthTotals, MeterTotals;
 	public Text InfoText;
+	public Text ResultsText;
+	public Text OperatorText;
+	public Image[] MoveIconsForHistory;
+	Image[] CurrentMoveIcons;
 
 	void Start(){
 		Fighters = new Character[2];
+		CurrentMoveIcons = new Image[2];
 		Moves = new Move[2];
 		Turn = 0;
 		if (testing) {
-			Fighters[0] = new KyoryuCharacter();
-			Fighters[1] = new KyoryuCharacter();
+			Fighters[0] = new KyoryuCharacter(3);
+			characterGUI [0].SetPlayerMaxHealth (Fighters [0].GetHealth());
+			Fighters[1] = new KyoryuCharacter(7);
+			characterGUI [1].SetPlayerMaxHealth (Fighters [1].GetHealth());
 		}
 		SetupGUI ();
 	}
 
 	public void SetCharacter(int playerNumber, Character character){
 		Fighters [playerNumber] = character;
+		characterGUI [playerNumber].SetPlayerMaxHealth (Fighters [playerNumber].GetHealth());
 	}
 
 	public void SetCurrentMove(string currentMove){	//Called every time a UI button for a move is pressed
-		print (currentMove + " being set.");
 		MoveForCurrentTurn = currentMove;
+	}
+
+	public void SetCurrentMoveIcon(Image currentImg){
+		CurrentMoveIcons [Turn] = currentImg;
 	}
 	
 	private Move YieldCurrentMove(){ //Called internally when a turn is incremented
@@ -71,10 +81,11 @@ public class FightDelegate : MonoBehaviour {
 		Moves [Turn] = YieldCurrentMove();
 		Turn += 1;
 		Turn = Turn % 2;
-		TurnText.text = "Player " + (Turn + 1) + "'s Turn";
+		//TurnText.text = "Player " + (Turn + 1) + "'s Turn";
 
 
 		if (Turn == 0) {
+			MyGUI.SummonHistoryFromMoves();
 			bool P1IsWinner, P2IsWinner;
 			P1IsWinner = P2IsWinner = false;
 			int P1DamageToBeDealt, P2DamageToBeDealt, P1MeterGain, P2MeterGain;
@@ -83,38 +94,56 @@ public class FightDelegate : MonoBehaviour {
 			P1MeterGain = 0;
 			P2MeterGain = 0;
 
+
+
 			Moves[0].YieldResults(Moves[1], out P1IsWinner, out P1DamageToBeDealt, out P1MeterGain);
 			Moves[1].YieldResults(Moves[0], out P2IsWinner, out P2DamageToBeDealt, out P2MeterGain);
-
 			//Insert block for animation here
 			//
 			//
-			if(P1IsWinner)
-				InfoText.text = ("Player 1's " + Moves[0].MoveType + " beat Player 2's " + Moves[1].MoveType+ "!");
-			if(P2IsWinner)
-				InfoText.text = ("Player 2's " + Moves[0].MoveType + " beat Player 1's " + Moves[1].MoveType+ "!");
-			if(P2DamageToBeDealt == 0 && P1DamageToBeDealt == 0)
-				InfoText.text = ("Player 1's " + Moves[0].MoveType + " & Player 2's " + Moves[1].MoveType+ " negated!");
-			else if(P2DamageToBeDealt != 0 || P1DamageToBeDealt != 0)
-				InfoText.text =  ("Player 1's " + Moves[0].MoveType + " & Player 2's " + Moves[1].MoveType+ " clashed!");
+			if(P1IsWinner){
+				InfoText.text = ("Player 1 won the round!");
+				OperatorText.text = ">";
+			}
+			else if(P2IsWinner){
+				InfoText.text = ("Player 2 won the round!");
+				OperatorText.text = "<";
+			}
+			else if(P2DamageToBeDealt == 0 && P1DamageToBeDealt == 0){
+				InfoText.text = ("No one won the round...");
+				OperatorText.text = "=";
+			}
+			else if(P2DamageToBeDealt != 0 || P1DamageToBeDealt != 0){
+				InfoText.text =  ("Player 1 & Player 2 clashed!");
+				OperatorText.text = "=";
+			}
 
+			string resultsParagraph = "";
 
 			if(P2DamageToBeDealt != 0){
 				Fighters[0].TakeDamage(P2DamageToBeDealt);
-			HealthTotals[0].text = Fighters[0].GetHealth().ToString();
+				resultsParagraph += "Player 1 took " + P2DamageToBeDealt + " damage!\n";
 			}
 			if(P1DamageToBeDealt != 0){
 				Fighters[1].TakeDamage(P1DamageToBeDealt);
-				HealthTotals[1].text = Fighters[1].GetHealth().ToString();
+				resultsParagraph += "Player 2 took " + P1DamageToBeDealt + " damage!\n";
 			}
 			if(P1MeterGain != 0){
 				Fighters[0].AddMeter(P1MeterGain);
-				MeterTotals[0].text = Fighters[0].GetMeter().ToString();
+				resultsParagraph += "Player 1 gained " + P1MeterGain + " meter!\n";
 			}
 			if(P2MeterGain != 0){
 				Fighters[1].AddMeter(P2MeterGain);
-				MeterTotals[1].text = Fighters[1].GetMeter().ToString();
+				resultsParagraph += "Player 2 gained " + P2MeterGain + " meter!\n";
 			}
+
+			characterGUI[0].UpdateStatus(P2DamageToBeDealt, P1MeterGain);
+			characterGUI[1].UpdateStatus(P1DamageToBeDealt, P2MeterGain);
+			MoveIconsForHistory[0].overrideSprite = CurrentMoveIcons[0].sprite;
+			MoveIconsForHistory[1].overrideSprite = CurrentMoveIcons[1].sprite;
+
+			ResultsText.text = resultsParagraph;
+
 
 			for(int i = 0; i<Moves.Length-1;i++){
 				if (Moves [i].MoveType == "Burst")

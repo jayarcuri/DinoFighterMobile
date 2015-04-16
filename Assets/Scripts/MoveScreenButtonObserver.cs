@@ -16,7 +16,6 @@ public class MoveScreenButtonObserver : MonoBehaviour {
 		listenerApperances = new Image[temp.Length];
 
 		for (int i = 0; i < temp.Length; i++) {
-			print(temp[i].name);
 			listeners[i] = temp[i].GetComponent<Button>();
 			listenerApperances [i] = temp[i].GetComponent<Image> ();
 		}

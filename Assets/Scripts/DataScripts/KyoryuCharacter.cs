@@ -11,11 +11,12 @@ public class KyoryuCharacter : Character
 	Special		<- Being added later
 	5 - Super*/
 
-	public KyoryuCharacter(){
+	public KyoryuCharacter(int seed){
+		//seed needed to induce actual randomness for variable attacks
 		Meter = 0;
 		Health = 100;
-		Moveset = new Move[]{new Attack(15, 10), new Defend(), new Dodge(15), new Throw(15, 10), 
-			new Burst(), new KyoryuSuper(20, 10)};
+		Moveset = new Move[]{new Attack(15, 10, seed), new Defend(), new Dodge(15), new Throw(15, 10, seed), 
+			new Burst(), new KyoryuSuper(20, 10, seed)};
 	}
 }
 

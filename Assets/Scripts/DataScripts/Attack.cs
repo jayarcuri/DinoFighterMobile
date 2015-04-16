@@ -6,11 +6,11 @@ public class Attack : Move
 	int Damage, DamageRange;	//Base damage, extra possible damage
 	Random r;
 
-	public Attack(int damage, int damageRange){
+	public Attack(int damage, int damageRange, int mySeed){
 		MoveType = "Attack";
 		Damage = damage;
 		DamageRange = damageRange;
-		r = new Random();
+		r = new Random(mySeed);
 	}
 	public override void YieldResults(Move move, out bool winner, out int outDamage, out int MeterGain){	//Returns damage to be done to opponent and grants character meter
 		Console.WriteLine("Yielding triggered.");
@@ -19,7 +19,7 @@ public class Attack : Move
 		case "Attack":
 		case "Throw":
 			Console.WriteLine("attack has hit.");
-			outDamage = Damage + r.Next(0, DamageRange+1);
+			outDamage = Damage + r.Next(DamageRange+1);
 			MeterGain = 1;
 			winner = (move.MoveType == "Throw");
 			break;
