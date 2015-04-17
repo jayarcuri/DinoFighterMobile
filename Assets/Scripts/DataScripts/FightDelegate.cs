@@ -19,6 +19,7 @@ public class FightDelegate : MonoBehaviour{
 	public Text OperatorText;
 	public Image[] MoveIconsForHistory;
 	Image[] CurrentMoveIcons;
+	public GameType type;
 	
 	public static FightDelegate FromByteArray(Byte[] array) {
 		return null;
