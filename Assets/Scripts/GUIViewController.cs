@@ -7,10 +7,11 @@ public class GUIViewController : MonoBehaviour
 {
 	public Button super;
 	public Button burst;
+	public Text turnText;
 	public RectTransform NavButtonFrame;
 	private Vector2 initialTouchLocation;
-	Vector2 previousTouchLocation;
-	Vector2 TouchEndedAt;
+	//Vector2 previousTouchLocation;
+	//Vector2 TouchEndedAt;
 
 	public GameObject MSO_Gameobj;
 	public GameObject MHO_Gameobj;
@@ -27,9 +28,10 @@ public class GUIViewController : MonoBehaviour
 	float animationStart;
 	float journeyLength;
 
-	public void SetView(Character character){
+	public void SetView(Character character, int turn){
 		burst.interactable = character.HasBurst ();
 		super.interactable = (character.GetMeter () > 9);
+		turnText.text = "Player " + turn + "'s turn!";
 	}
 
 	void Awake(){
@@ -39,8 +41,6 @@ public class GUIViewController : MonoBehaviour
 	}
 
 	void Start(){
-		//MSO_Gameobj.SetActive (true);
-		//MHO_Gameobj.SetActive (true);
 		MoveSelectionOverlay.anchoredPosition = new Vector2(Screen.width, 0);
 		LeftSideAnchor = new Vector2 (0f, 0);
 		RightSideAnchor = new Vector2 (Screen.width, 0);
@@ -52,7 +52,7 @@ public class GUIViewController : MonoBehaviour
 		//no slide UI stuff
 		MSO_Gameobj.SetActive (false);
 		MHO_Gameobj.SetActive (false);
-		NavButtonOffscreen = new Vector2(0, -NavButtonFrame.rect.height);
+		NavButtonOffscreen = new Vector2(0, -NavButtonFrame.rect.height*1.2f);
 		
 	}
 
@@ -154,71 +154,56 @@ public class GUIViewController : MonoBehaviour
 
 	IEnumerator LerpInMoves(){
 		MSO_Gameobj.SetActive (true);
-		print ("Coroute started");
 		float startTime = Time.time;
 
-		while (Time.time < 0.25f+startTime) {
+		while (MoveSelectionOverlay.anchoredPosition.x > LeftSideAnchor.x) {
 			MoveSelectionOverlay.anchoredPosition = Vector2.Lerp(RightSideAnchor, LeftSideAnchor, (Time.time-startTime)/.25f);
 			NavButtonFrame.anchoredPosition = Vector2.Lerp (NavButtonHome, NavButtonOffscreen, (Time.time-startTime)/.25f);
-			yield return null;
-		}
-		MoveSelectionOverlay.anchoredPosition = LeftSideAnchor;
-		NavButtonFrame.anchoredPosition = NavButtonOffscreen;
+			yield return null;}
 	}
 
 	IEnumerator LerpInMainFromMoves(){
 		float startTime = Time.time;
 		
-		while (Time.time < 0.25f+startTime) {
+		while (MoveSelectionOverlay.anchoredPosition.x < RightSideAnchor.x) {
 			MoveSelectionOverlay.anchoredPosition = Vector2.Lerp(LeftSideAnchor, RightSideAnchor, (Time.time-startTime)/.25f);
 			NavButtonFrame.anchoredPosition = Vector2.Lerp ( NavButtonOffscreen, NavButtonHome, (Time.time-startTime)/.25f);
 			yield return null;
 		}
-		MoveSelectionOverlay.anchoredPosition = RightSideAnchor;
-		NavButtonFrame.anchoredPosition = NavButtonHome;
 		MSO_Gameobj.SetActive (false);
 	}
 
 	IEnumerator LerpInLastClash(){
-		if (Screen.width != RightSideAnchor.x)
-			RightSideAnchor = new Vector2 (Screen.width, 0);
 		float startTime = Time.time;
 		MHO_Gameobj.SetActive (true);
-		while (Time.time < 0.25f+startTime) {
-			MatchHistoryOverlay.anchoredPosition = Vector2.Lerp(MHO_Homepoint, Vector2.zero, (Time.time-startTime)/.25f);
-			NavButtonFrame.anchoredPosition = Vector2.Lerp (NavButtonHome, NavButtonOffscreen, (Time.time-startTime)/.25f);
+
+		while (MatchHistoryOverlay.anchoredPosition.x < 0) {
+			MatchHistoryOverlay.anchoredPosition = Vector2.Lerp(MHO_Homepoint, Vector2.zero, Mathf.Clamp((Time.time-startTime)/.25f, 0f, 1f));
+			NavButtonFrame.anchoredPosition = Vector2.Lerp (NavButtonHome, NavButtonOffscreen, Mathf.Clamp((Time.time-startTime)/.25f, 0f, 1f));
 			yield return null;
 		}
-		MoveSelectionOverlay.anchoredPosition = Vector2.zero;
-		NavButtonFrame.anchoredPosition = NavButtonOffscreen;
 	}
 
 	IEnumerator LerpInMainFromHistory(){
 		float startTime = Time.time;
 		
 		while (Time.time < 0.25f+startTime) {
-			MatchHistoryOverlay.anchoredPosition = Vector2.Lerp(Vector2.zero, MHO_Homepoint, (Time.time-startTime)/.25f);
-			NavButtonFrame.anchoredPosition = Vector2.Lerp (NavButtonOffscreen, NavButtonHome, (Time.time-startTime)/.25f);
+			MatchHistoryOverlay.anchoredPosition = Vector2.Lerp(Vector2.zero, MHO_Homepoint, Mathf.Clamp((Time.time-startTime)/.25f, 0f, 1f));
+			NavButtonFrame.anchoredPosition = Vector2.Lerp (NavButtonOffscreen, NavButtonHome, Mathf.Clamp((Time.time-startTime)/.25f, 0f, 1f));
 			yield return null;
 		}
-		MoveSelectionOverlay.anchoredPosition = MHO_Homepoint;
-		NavButtonFrame.anchoredPosition = NavButtonHome;
 		MHO_Gameobj.SetActive (false);
 	}
 
 	IEnumerator LerpHistoryFromMoves(){
-		if (Screen.width != RightSideAnchor.x)
-			RightSideAnchor = new Vector2 (Screen.width, 0);
 		float startTime = Time.time;
 		MHO_Gameobj.SetActive (true);
-		while (Time.time < 0.25f+startTime) {
-			MoveSelectionOverlay.anchoredPosition = Vector2.Lerp(LeftSideAnchor, RightSideAnchor, (Time.time-startTime)/.25f);
-			MatchHistoryOverlay.anchoredPosition = Vector2.Lerp(MHO_Homepoint, Vector2.zero, (Time.time-startTime)/.25f);
+		while (MatchHistoryOverlay.anchoredPosition.x < 0) {
+			MoveSelectionOverlay.anchoredPosition = Vector2.Lerp(LeftSideAnchor, RightSideAnchor, Mathf.Clamp((Time.time-startTime)/.25f, 0f, 1f));
+			MatchHistoryOverlay.anchoredPosition = Vector2.Lerp(MHO_Homepoint, Vector2.zero, Mathf.Clamp((Time.time-startTime)/.25f, 0f, 1f));
 			yield return null;
 		}
-		MoveSelectionOverlay.anchoredPosition = RightSideAnchor;
 		MSO_Gameobj.SetActive (false);
-		MatchHistoryOverlay.anchoredPosition = Vector2.zero;
 	}
 
 

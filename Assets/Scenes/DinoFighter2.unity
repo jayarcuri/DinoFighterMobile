@@ -1921,14 +1921,14 @@ RectTransform:
   m_GameObject: {fileID: 1098167152}
   m_LocalRotation: {x: 0, y: 0, z: .707106829, w: .707106709}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 2026011433}
   m_RootOrder: 2
-  m_AnchorMin: {x: .389999986, y: 0}
-  m_AnchorMax: {x: .720000029, y: .670000017}
-  m_AnchoredPosition: {x: 0, y: -60}
-  m_SizeDelta: {x: 0, y: 120}
+  m_AnchorMin: {x: .349999994, y: .0500000007}
+  m_AnchorMax: {x: .75, y: .25}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1098167154
 MonoBehaviour:
@@ -2702,6 +2702,7 @@ MonoBehaviour:
   MoveIconsForHistory:
   - {fileID: 1572656043}
   - {fileID: 662729257}
+  type: 0
 --- !u!114 &1317055955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2715,6 +2716,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   super: {fileID: 1138616725}
   burst: {fileID: 1644541901}
+  turnText: {fileID: 1427835621}
   NavButtonFrame: {fileID: 223923496}
   MSO_Gameobj: {fileID: 2026011430}
   MHO_Gameobj: {fileID: 684785356}
@@ -3109,6 +3111,72 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1411481425}
+--- !u!1 &1427835619
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 1427835620}
+  - 222: {fileID: 1427835622}
+  - 114: {fileID: 1427835621}
+  m_Layer: 5
+  m_Name: TurnText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1427835620
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1427835619}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2026011433}
+  m_RootOrder: 11
+  m_AnchorMin: {x: .0299999993, y: .699999988}
+  m_AnchorMax: {x: .300000012, y: .800000012}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: .5, y: .5}
+--- !u!114 &1427835621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1427835619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: .313725501, g: .298039228, b: .270588249, a: 1}
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 1
+    m_BestFit: 1
+    m_MinSize: 10
+    m_MaxSize: 60
+    m_Alignment: 6
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Player 1's turn!
+--- !u!222 &1427835622
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1427835619}
 --- !u!1 &1513930186
 GameObject:
   m_ObjectHideFlags: 0
@@ -3947,6 +4015,7 @@ RectTransform:
   - {fileID: 305979185}
   - {fileID: 1358450520}
   - {fileID: 2082369293}
+  - {fileID: 1427835620}
   m_Father: {fileID: 620741319}
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0}

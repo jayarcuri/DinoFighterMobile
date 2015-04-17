@@ -167,7 +167,7 @@ public class FightDelegate : MonoBehaviour{
 	}
 
 	public void SetupGUI(){
-		MyGUI.SetView(Fighters[Turn]);
+		MyGUI.SetView (Fighters [Turn], Turn+1);
 	}
 
 
