@@ -157,9 +157,9 @@ public class FightDelegate : MonoBehaviour{
 			ResultsText.text = resultsParagraph;
 
 
-			for(int i = 0; i<Moves.Length-1;i++){
-				if (Moves [i].MoveType == "Burst")
-					Fighters [Turn].UseBurst ();
+			for(int i = 0; i<Moves.Length;i++){
+				if (Moves [i].MoveType == "Burst"){
+					Fighters [Turn].UseBurst ();}
 				Moves[i] = null;
 			}
 		}

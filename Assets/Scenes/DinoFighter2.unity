@@ -737,6 +737,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 2026011434}
+        m_MethodName: buttonClickedEvent
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 305979186}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI,
+            Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &305979187
@@ -1782,6 +1794,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 2026011434}
+        m_MethodName: buttonClickedEvent
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 862360086}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI,
+            Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &862360087
@@ -2055,6 +2079,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 2026011434}
+        m_MethodName: buttonClickedEvent
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1138616725}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI,
+            Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1138616726
@@ -2322,6 +2358,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 1155860553}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI,
+            Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2026011434}
+        m_MethodName: buttonClickedEvent
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1155860552}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI,
             Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -2751,7 +2799,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2026011434}
         m_MethodName: resetButtonColors
         m_Mode: 1
         m_Arguments:
@@ -3647,6 +3695,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 2026011434}
+        m_MethodName: buttonClickedEvent
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1644541901}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI,
+            Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1644541902
@@ -3905,7 +3965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d796ca96d8fa4e72a51ef4ea7f27391, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nonselectedColor: {r: .691176474, g: .691176474, b: .691176474, a: 1}
+  nonselectedColor: {r: .191176474, g: .191176474, b: .191176474, a: 1}
 --- !u!1 &2053162347
 GameObject:
   m_ObjectHideFlags: 0
@@ -4022,6 +4082,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 2053162350}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI,
+            Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 2026011434}
+        m_MethodName: buttonClickedEvent
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2053162349}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI,
             Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
           m_IntArgument: 0
           m_FloatArgument: 0
