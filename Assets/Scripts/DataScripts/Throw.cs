@@ -7,7 +7,7 @@ public class Throw : Move
 	Random r;
 	
 	public Throw(int damage, int damageRange, int mySeed){
-		MoveType = "Throw";
+		name = MoveType = "Throw";
 		Damage = damage;
 		DamageRange = damageRange;
 		r = new Random(mySeed);

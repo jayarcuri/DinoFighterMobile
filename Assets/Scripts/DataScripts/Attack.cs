@@ -7,7 +7,7 @@ public class Attack : Move
 	Random r;
 
 	public Attack(int damage, int damageRange, int mySeed){
-		MoveType = "Attack";
+		name = MoveType = "Attack";
 		Damage = damage;
 		DamageRange = damageRange;
 		r = new Random(mySeed);

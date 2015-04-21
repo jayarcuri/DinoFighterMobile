@@ -18,5 +18,11 @@ public class KyoryuCharacter : Character
 		Moveset = new Move[]{new Attack(15, 10, seed), new Defend(), new Dodge(15), new Throw(15, 10, seed), 
 			new Burst(), new KyoryuSuper(20, 10, seed)};
 	}
+
+	public override string GetMoveName ()
+	{
+		throw new System.NotImplementedException ();
+	}
+
 }
 

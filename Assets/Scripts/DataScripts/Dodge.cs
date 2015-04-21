@@ -7,7 +7,7 @@ public class Dodge : Move
 	//Random r;
 	
 	public Dodge(int damage/*, int damageRange*/){
-		MoveType = "Dodge";
+		name = MoveType = "Dodge";
 		Damage = damage;
 		//DamageRange = damageRange;
 		//r = new Random();

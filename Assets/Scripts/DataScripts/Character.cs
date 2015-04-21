@@ -15,22 +15,32 @@ public abstract class Character
 	public int Meter, Health;
 	bool HasUsedBurst = false;
 
-public void AddMeter(int amount){
+	public abstract string GetMoveName ();
+
+public virtual void AddMeter(int amount){
 		Meter += amount;
 		if (Meter > 10)
 			Meter = 10;
 	}
 
-	public int GetMeter(){
+	public virtual int GetMeter(){
 		return Meter;
 	}
 
-	public void TakeDamage(int dmg){
+	public virtual void TakeDamage(int dmg){
 		Health -= dmg;
 	}
 
-	public int GetHealth(){
+	public virtual int GetHealth(){
 		return Health;
+	}
+
+	public virtual bool HasBurst(){
+		return !HasUsedBurst;
+	}
+	
+	public virtual void UseBurst(){
+		HasUsedBurst = true;
 	}
 
 	public Move GetAttack(){
@@ -56,15 +66,6 @@ public void AddMeter(int amount){
 	public Move GetSuper(){
 		return Moveset [5];
 	}
-
-	public bool HasBurst(){
-		return !HasUsedBurst;
-	}
-
-	public void UseBurst(){
-		HasUsedBurst = true;
-	}
-	
 
 }
 

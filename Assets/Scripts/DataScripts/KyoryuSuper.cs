@@ -7,6 +7,7 @@ public class KyoryuSuper : Move
 	Random r;
 	
 	public KyoryuSuper(int damage, int damageRange, int mySeed){
+		name = "Super";
 		MoveType = "Attack";	//Still an attack
 		Damage = damage;
 		DamageRange = damageRange;
@@ -31,7 +32,7 @@ public class KyoryuSuper : Move
 			break;
 
 		case "Defend":
-			outDamage = (Damage + r.Next(DamageRange+1))/3;	//Deals 1/3 damage versus block
+			outDamage = (Damage + r.Next(DamageRange+1))/2;	//Deals 1/2 damage versus block
 			MeterGain = -10;
 			winner = false;
 			break;

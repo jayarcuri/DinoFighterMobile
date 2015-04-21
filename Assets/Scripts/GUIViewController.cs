@@ -29,7 +29,7 @@ public class GUIViewController : MonoBehaviour
 	float journeyLength;
 
 	public void SetView(Character character, int turn){
-		burst.interactable = character.HasBurst ();
+		burst.interactable = character.GetMeter() > 4;
 		super.interactable = (character.GetMeter () > 9);
 		turnText.text = "Player " + turn + "'s turn!";
 	}

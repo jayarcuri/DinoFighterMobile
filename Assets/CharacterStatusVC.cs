@@ -6,6 +6,7 @@ public class CharacterStatusVC : MonoBehaviour {
 
 	public RectTransform meterBar;
 	public RectTransform healthBar;
+	public Text playerName;
 	public Text healthPercentage;
 	public bool isPlayer2;
 	float playerMaxHealth;
@@ -23,6 +24,10 @@ public class CharacterStatusVC : MonoBehaviour {
 		//print ("Max: " + maxHealth);
 		playerMaxHealth = maxHealth;
 		currentPlayerHealth = maxHealth;
+	}
+
+	public void SetPlayerName(string name){
+		playerName.text = name;
 	}
 	
 	public void UpdateStatus(int healthDelta, int meterDelta){
