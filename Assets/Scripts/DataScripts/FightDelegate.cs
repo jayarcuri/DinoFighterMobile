@@ -28,8 +28,12 @@ public class FightDelegate : MonoBehaviour{
 	public static byte[] ToByteArray( FightDelegate bundle) {
 		return null;
 	}
+	
 
 	void Start(){
+		MultiSceneMessenger msm = GameObject.Find ("MatchInfo").GetComponent<MultiSceneMessenger>();
+		if (msm != null)
+			type = msm.matchType;
 		//Fighters = new Character[2];	Moving to isSinglePlayer or not blocks
 		Moves = new Move[2];
 		Turn = 0;
