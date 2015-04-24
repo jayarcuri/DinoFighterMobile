@@ -11,13 +11,16 @@ public class FightDelegate : MonoBehaviour{
 	string MoveForCurrentTurn;
 	Move[] Moves;
 	int Turn;
+	int Rounds;
 	string[] playerNames;
+	public WinScreenViewController gameOverScreen;
+	public GameObject BetweenTurnPopup;
 	public CharacterStatusVC[] characterGUI;
 	public LastMoveIconVC moveIcons;
 	public GUIViewController MyGUI;
 	public bool testing;
 	public Text InfoText;
-	public Text ResultsText;
+	public Text[] ResultsText;
 	public Text OperatorText;
 	public GameType type;
 	
@@ -31,10 +34,14 @@ public class FightDelegate : MonoBehaviour{
 	
 
 	void Start(){
-		MultiSceneMessenger msm = GameObject.Find ("MatchInfo").GetComponent<MultiSceneMessenger>();
-		if (msm != null)
-			type = msm.matchType;
-		//Fighters = new Character[2];	Moving to isSinglePlayer or not blocks
+
+		if (GameObject.Find ("MatchInfo") != null) {	//If the match was set by a former screen, set this match to that type
+			MultiSceneMessenger msm = GameObject.Find ("MatchInfo").GetComponent<MultiSceneMessenger> ();
+				type = msm.matchType;
+		}
+
+		BetweenTurnPopup.SetActive (false);
+
 		Moves = new Move[2];
 		Turn = 0;
 		Fighters = new Character[2];
@@ -126,7 +133,13 @@ public class FightDelegate : MonoBehaviour{
 			Moves[1] = YieldCurrentMove(1);
 		}
 
+
+		if (Turn == 1) {
+			BetweenTurnPopup.SetActive(true);
+		}
+
 		if (Turn == 0) {
+			++Rounds;
 			MyGUI.SummonHistoryFromMoves();	//brings in post-round screen
 			bool P1IsWinner, P2IsWinner;
 			P1IsWinner = P2IsWinner = false;
@@ -160,38 +173,49 @@ public class FightDelegate : MonoBehaviour{
 				OperatorText.text = "=";
 			}
 
-			string resultsParagraph = "";
+			string resultsParagraph1 = "";
+			string resultsParagraph2 = "";
 
 			if(P2DamageToBeDealt > 0 ){
 				Fighters[0].TakeDamage(P2DamageToBeDealt);
-				resultsParagraph += playerNames[0] + " took " + P2DamageToBeDealt + " damage!\n";
+				resultsParagraph1 += playerNames[0] + " took " + P2DamageToBeDealt + " damage!\n";
 			}
 			if(P1DamageToBeDealt > 0){
 				Fighters[1].TakeDamage(P1DamageToBeDealt);
-				resultsParagraph += playerNames[1] + " took " + P1DamageToBeDealt + " damage!\n";
+				resultsParagraph2 += playerNames[1] + " took " + P1DamageToBeDealt + " damage!\n";
 			}
 			if(P1MeterGain > 0){
 				Fighters[0].AddMeter(P1MeterGain);
-				resultsParagraph += playerNames[0] +  " gained " + P1MeterGain + " meter!\n";
+				resultsParagraph1 += playerNames[0] +  " gained " + P1MeterGain + " meter!\n";
 			}
 			if(P2MeterGain > 0){
 				Fighters[1].AddMeter(P2MeterGain);
-				resultsParagraph += playerNames[1] +  " gained " + P2MeterGain + " meter!\n";
+				resultsParagraph2 += playerNames[1] +  " gained " + P2MeterGain + " meter!\n";
 			}
 
 			characterGUI[0].UpdateStatus(P2DamageToBeDealt, P1MeterGain);
 			characterGUI[1].UpdateStatus(P1DamageToBeDealt, P2MeterGain);
 
 
-			ResultsText.text = resultsParagraph;
-
-
+			ResultsText[0].text = resultsParagraph1;
+			ResultsText[1].text = resultsParagraph2;
 		}
 		SetupGUI ();
 	}
 
 	public void SetupGUI(){
 		MyGUI.SetView (Fighters [Turn], Turn+1);
+	}
+
+	public void SomeoneWon(){
+		if (Fighters [0].Health == 0 && Fighters [1].Health == 0) {
+			gameOverScreen.GameOver("No one", Rounds);
+		} else if (Fighters [0].Health == 0) {
+			gameOverScreen.GameOver("Player 2", Rounds);
+		} else if (Fighters [1].Health == 0) {
+			gameOverScreen.GameOver("Player 1", Rounds);
+		}
+
 	}
 
 

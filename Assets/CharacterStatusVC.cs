@@ -9,11 +9,13 @@ public class CharacterStatusVC : MonoBehaviour {
 	public Text playerName;
 	public Text healthPercentage;
 	public bool isPlayer2;
+	FightDelegate fDelegate;
 	float playerMaxHealth;
 	float currentPlayerHealth;
 	float currentPlayerMeter = 0;
 	// Use this for initialization
 	void Start () {
+		fDelegate = GameObject.Find ("Main Camera").GetComponent<FightDelegate>();
 		if(!isPlayer2)
 		meterBar.anchorMax = new Vector3 (0, 1);
 		else
@@ -33,6 +35,8 @@ public class CharacterStatusVC : MonoBehaviour {
 	public void UpdateStatus(int healthDelta, int meterDelta){
 		if (healthDelta != 0) {
 			currentPlayerHealth -= healthDelta;
+			if(currentPlayerHealth < 0)
+				currentPlayerHealth = 0;
 			if(!isPlayer2)
 				healthBar.anchorMax = new Vector2(Mathf.Lerp(0, 1, currentPlayerHealth/playerMaxHealth), 1);
 			else
@@ -47,5 +51,7 @@ public class CharacterStatusVC : MonoBehaviour {
 			else
 				meterBar.anchorMin = new Vector2(Mathf.Lerp(1, 0, currentPlayerMeter/10), 0);
 		}
+		if (currentPlayerHealth == 0)
+			fDelegate.SomeoneWon ();
 	}
 }
