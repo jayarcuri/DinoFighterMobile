@@ -8,7 +8,7 @@ public class KyoryuSuper : Move
 	
 	public KyoryuSuper(int damage, int damageRange, int mySeed){
 		name = "Super";
-		MoveType = "Attack";	//Still an attack
+		MoveType = MoveSet.Attack;	//Still an attack
 		Damage = damage;
 		DamageRange = damageRange;
 		Cost = 10;
@@ -24,14 +24,14 @@ public class KyoryuSuper : Move
 			winner = false;
 			break;
 			
-		case "Attack":
-		case "Throw":
+		case MoveSet.Attack:
+		case MoveSet.Throw:
 			outDamage = Damage + r.Next(DamageRange+1);
 			MeterGain = -10;
 			winner = true;
 			break;
 
-		case "Defend":
+		case MoveSet.Defend:
 			outDamage = (Damage + r.Next(DamageRange+1))/2;	//Deals 1/2 damage versus block
 			MeterGain = -10;
 			winner = false;

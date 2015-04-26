@@ -7,7 +7,8 @@ public class Dodge : Move
 	//Random r;
 	
 	public Dodge(int damage/*, int damageRange*/){
-		name = MoveType = "Dodge";
+		name =  "Dodge";
+		MoveType = MoveSet.Dodge;
 		Damage = damage;
 		//DamageRange = damageRange;
 		//r = new Random();
@@ -21,7 +22,7 @@ public class Dodge : Move
 			winner = false;
 			break;
 			
-		case "Attack":
+		case MoveSet.Attack:
 			outDamage = Damage;
 			MeterGain = 0;
 			winner = true;

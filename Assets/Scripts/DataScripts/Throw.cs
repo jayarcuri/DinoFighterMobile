@@ -7,7 +7,8 @@ public class Throw : Move
 	Random r;
 	
 	public Throw(int damage, int damageRange, int mySeed){
-		name = MoveType = "Throw";
+		name = "Throw";
+		MoveType = MoveSet.Throw;
 		Damage = damage;
 		DamageRange = damageRange;
 		r = new Random(mySeed);
@@ -21,8 +22,8 @@ public class Throw : Move
 			winner = false;
 			break;
 			
-		case "Defend":
-		case "Dodge":
+		case MoveSet.Defend:
+		case MoveSet.Dodge:
 			outDamage = Damage + r.Next(DamageRange+1);
 			MeterGain = 1;
 			winner = true;

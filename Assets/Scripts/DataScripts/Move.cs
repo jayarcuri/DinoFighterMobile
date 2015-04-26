@@ -2,7 +2,7 @@ using System.Collections;
 
 public abstract class Move
 {
-	public string MoveType; //Could be Block, Attack, Throw, etc.
+	public MoveSet MoveType; //Could be Block, Attack, Throw, etc.
 	public string name;
 	public int Cost = 0;
 

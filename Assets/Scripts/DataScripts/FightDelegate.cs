@@ -30,12 +30,12 @@ public class FightDelegate : MonoBehaviour{
 	public static FightDelegate FromByteArray(Byte[] array) {
 		MemoryStream stream = new MemoryStream(array);
 		BinaryReader reader = new BinaryReader(stream);
-		FightDelegate fight = new FightDelegate;
-		fight.type = (GameType)reader.ReadInt32;
-		fight.Rounds = reader.ReadInt32;
+		FightDelegate fight = new FightDelegate();
+		fight.type = (GameType)reader.ReadInt32();
+		fight.Rounds = reader.ReadInt32();
 		
-		CharacterType type1 = (CharacterType)reader.ReadInt32;
-		Character player1;
+		CharacterType type1 = (CharacterType)reader.ReadInt32();
+		Character player1 = null;
 		switch(type1) {
 //			case CharacterType.AI:
 //				player1 = new AIPlayer();
@@ -44,27 +44,27 @@ public class FightDelegate : MonoBehaviour{
 				player1 = new KyoryuCharacter(3);
 				break;
 		}
-		player1.Health = reader.ReadInt32;
-		player1.Meter = reader.ReadInt32;
+		player1.Health = reader.ReadInt32();
+		player1.Meter = reader.ReadInt32();
 		fight.Moves = new Move[2];
 //		fight.Moves[0] = ;
 		
-		CharacterType type2 = (CharacterType)reader.ReadInt32;
-		Character player2;
+		CharacterType type2 = (CharacterType)reader.ReadInt32();
+		Character player2 = null;
 		switch(type2) {
 		case CharacterType.AI:
-			player2 = new AIPlayer(5, new KyoryuCharacter);
+			player2 = new AIPlayer(5, new KyoryuCharacter(7));
 			break;
 		case CharacterType.Kyoryu:
 			player2 = new KyoryuCharacter(7);
 			break;
 		}
-		player2.Health = reader.ReadInt32;
-		player2.Meter = reader.ReadInt32;
+		player2.Health = reader.ReadInt32();
+		player2.Meter = reader.ReadInt32();
 		
 		
-		characterGUI [0].SetPlayerMaxHealth (Fighters [0].GetHealth());
-		characterGUI [1].SetPlayerMaxHealth (Fighters [1].GetHealth());
+		fight.characterGUI [0].SetPlayerMaxHealth (fight.Fighters [0].GetHealth());
+		fight.characterGUI [1].SetPlayerMaxHealth (fight.Fighters [1].GetHealth());
 		
 		return null;
 	}
@@ -72,19 +72,19 @@ public class FightDelegate : MonoBehaviour{
 	public static byte[] ToByteArray( FightDelegate bundle) {
 		MemoryStream stream = new MemoryStream(48);
 		BinaryWriter writer = new BinaryWriter(stream);
-		writer.Write((int)this.type);
-		writer.Write(this.Rounds);
-		writer.Write(this.Turn);
-		Character player1 = this.Fighters[0];
-		writer.Write((int)player1.GetCharacterType);
-		writer.Write(player1.GetHealth);
-		writer.Write(player1.GetMeter);
-		writer.Write(this.Moves[0].GetType);
-		Character player2 = this.Fighters[1];
-		writer.Write((int)player2.GetCharacterType);
-		writer.Write(player2.GetHealth);
-		writer.Write(player2.GetMeter);
-		writer.Write(this.Moves[1].GetType);
+		writer.Write((int)bundle.type);
+		writer.Write(bundle.Rounds);
+		writer.Write(bundle.Turn);
+		Character player1 = bundle.Fighters[0];
+		writer.Write((int)player1.GetCharacterType());
+		writer.Write(player1.GetHealth());
+		writer.Write(player1.GetMeter());
+		writer.Write((int) bundle.Moves[0].MoveType);
+		Character player2 = bundle.Fighters[1];
+		writer.Write((int)player2.GetCharacterType());
+		writer.Write(player2.GetHealth());
+		writer.Write(player2.GetMeter());
+		writer.Write((int) bundle.Moves[1].MoveType);
 		return stream.GetBuffer();
 	}
 	

@@ -7,7 +7,8 @@ public class Attack : Move
 	Random r;
 
 	public Attack(int damage, int damageRange, int mySeed){
-		name = MoveType = "Attack";
+		name = "Attack";
+		MoveType = MoveSet.Attack;
 		Damage = damage;
 		DamageRange = damageRange;
 		r = new Random(mySeed);
@@ -16,12 +17,12 @@ public class Attack : Move
 		Console.WriteLine("Yielding triggered.");
 		switch (move.MoveType) {
 			
-		case "Attack":
-		case "Throw":
+		case MoveSet.Attack:
+		case MoveSet.Throw:
 			Console.WriteLine("attack has hit.");
 			outDamage = Damage + r.Next(DamageRange+1);
 			MeterGain = 1;
-			winner = (move.MoveType == "Throw");
+			winner = (move.MoveType == MoveSet.Throw);
 			break;
 
 		default:

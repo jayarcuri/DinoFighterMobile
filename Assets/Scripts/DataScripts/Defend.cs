@@ -3,7 +3,8 @@ using System.Collections;
 public class Defend : Move
 {
 	public Defend(){
-		name = MoveType = "Defend";
+		name = "Defend";
+		MoveType = MoveSet.Defend;
 	}
 	public override void YieldResults(Move move, out bool winner, out int outDamage, out int MeterGain){	//Returns damage to be done to opponent and grants character meter
 		switch (move.MoveType) {
@@ -14,7 +15,7 @@ public class Defend : Move
 			winner = false;
 			break;
 			
-		case "Attack":
+		case MoveSet.Attack:
 			outDamage = 0;
 			MeterGain = 2;
 			winner = true;

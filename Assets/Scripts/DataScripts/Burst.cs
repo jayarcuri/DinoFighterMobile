@@ -4,7 +4,8 @@ public class Burst : Move
 {
 	
 	public Burst(){
-		name = MoveType = "Burst";
+		name = "Burst";
+		MoveType = MoveSet.Burst;
 	}
 	public override void YieldResults(Move move, out bool winner, out int outDamage, out int MeterGain){	//Returns damage to be done to opponent and grants character meter
 		switch (move.MoveType) {
@@ -15,8 +16,8 @@ public class Burst : Move
 			winner = false;
 			break;
 			
-		case "Attack":
-		case "Throw":
+		case MoveSet.Attack:
+		case MoveSet.Throw:
 			outDamage = 0;
 			MeterGain = -5;
 			winner = true;
