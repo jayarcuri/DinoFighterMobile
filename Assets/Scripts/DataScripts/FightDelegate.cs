@@ -26,6 +26,7 @@ public class FightDelegate : MonoBehaviour{
 	public Text[] ResultsText;
 	public Text OperatorText;
 	public GameType type;
+	bool started = false;
 	
 	public static FightDelegate FromByteArray(Byte[] array) {
 		MemoryStream stream = new MemoryStream(array);
@@ -47,7 +48,7 @@ public class FightDelegate : MonoBehaviour{
 		player1.Health = reader.ReadInt32();
 		player1.Meter = reader.ReadInt32();
 		fight.Moves = new Move[2];
-//		fight.Moves[0] = ;
+//		fight.Moves[0] = player1.GetMoveName;
 		
 		CharacterType type2 = (CharacterType)reader.ReadInt32();
 		Character player2 = null;
@@ -63,10 +64,13 @@ public class FightDelegate : MonoBehaviour{
 		player2.Meter = reader.ReadInt32();
 		
 		
-		fight.characterGUI [0].SetPlayerMaxHealth (fight.Fighters [0].GetHealth());
-		fight.characterGUI [1].SetPlayerMaxHealth (fight.Fighters [1].GetHealth());
+		fight.Fighters = new Character[2];
+		fight.Fighters[0] = player1;
+		fight.Fighters[1] = player2;
 		
-		return null;
+		fight.started = true;
+		
+		return fight;
 	}
 
 	public static byte[] ToByteArray( FightDelegate bundle) {
@@ -91,27 +95,29 @@ public class FightDelegate : MonoBehaviour{
 
 	void Start(){
 
-		if (GameObject.Find ("MatchInfo") != null) {	//If the match was set by a former screen, set this match to that type
-			MultiSceneMessenger msm = GameObject.Find ("MatchInfo").GetComponent<MultiSceneMessenger> ();
-				type = msm.matchType;
+		if(!started) {
+			if (GameObject.Find ("MatchInfo") != null) {	//If the match was set by a former screen, set this match to that type
+				MultiSceneMessenger msm = GameObject.Find ("MatchInfo").GetComponent<MultiSceneMessenger> ();
+					type = msm.matchType;
+			}
+	
+			Moves = new Move[2];
+			Turn = 0;
+			Fighters = new Character[2];
+	
+			if (type == GameType.local) {
+				playerNames = new string[]{"Player 1", "Player 2"};
+				Fighters[0] = new KyoryuCharacter(3);
+				Fighters[1] = new KyoryuCharacter(7);
+			}
+			if (type == GameType.ai) {
+				playerNames = new string[]{"Player 1", "Com"};
+				Fighters[0] = new KyoryuCharacter(3);
+				Fighters[1] = new AIPlayer(5, new KyoryuCharacter(7));
+			}
 		}
-
+		
 		BetweenTurnPopup.SetActive (false);
-
-		Moves = new Move[2];
-		Turn = 0;
-		Fighters = new Character[2];
-
-		if (type == GameType.local) {
-			playerNames = new string[]{"Player 1", "Player 2"};
-			Fighters[0] = new KyoryuCharacter(3);
-			Fighters[1] = new KyoryuCharacter(7);
-		}
-		if (type == GameType.ai) {
-			playerNames = new string[]{"Player 1", "Com"};
-			Fighters[0] = new KyoryuCharacter(3);
-			Fighters[1] = new AIPlayer(5, new KyoryuCharacter(7));
-		}
 		
 		characterGUI [0].SetPlayerMaxHealth (Fighters [0].GetHealth());
 		characterGUI [1].SetPlayerMaxHealth (Fighters [1].GetHealth());
