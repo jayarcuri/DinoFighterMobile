@@ -16,6 +16,8 @@ public abstract class Character
 	bool HasUsedBurst = false;
 
 	public abstract string GetMoveName ();
+	
+	public abstract CharacterType GetCharacterType ();
 
 public virtual void AddMeter(int amount){
 		Meter += amount;
@@ -44,27 +46,27 @@ public virtual void AddMeter(int amount){
 	}
 
 	public Move GetAttack(){
-		return Moveset [0];
+		return Moveset [(int)MoveSet.Attack];
 	}
 
 	public Move GetDefend(){
-		return Moveset [1];
+		return Moveset [(int)MoveSet.Defend];
 	}
 
 	public Move GetDodge(){
-		return Moveset [2];
+		return Moveset [(int)MoveSet.Dodge];
 	}
 
 	public Move GetThrow(){
-		return Moveset [3];
+		return Moveset [(int)MoveSet.Throw];
 	}
 
 	public Move GetBurst(){
-		return Moveset [4];
+		return Moveset [(int)MoveSet.Burst];
 	}
 
 	public Move GetSuper(){
-		return Moveset [5];
+		return Moveset [(int)MoveSet.Super];
 	}
 
 }

@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 using UnityEngine.UI;
+using GooglePlayGames.BasicApi.Multiplayer;
 
 [Serializable]
 public class FightDelegate : MonoBehaviour{
@@ -25,11 +28,64 @@ public class FightDelegate : MonoBehaviour{
 	public GameType type;
 	
 	public static FightDelegate FromByteArray(Byte[] array) {
+		MemoryStream stream = new MemoryStream(array);
+		BinaryReader reader = new BinaryReader(stream);
+		FightDelegate fight = new FightDelegate;
+		fight.type = (GameType)reader.ReadInt32;
+		fight.Rounds = reader.ReadInt32;
+		
+		CharacterType type1 = (CharacterType)reader.ReadInt32;
+		Character player1;
+		switch(type1) {
+//			case CharacterType.AI:
+//				player1 = new AIPlayer();
+//				break;
+			case CharacterType.Kyoryu:
+				player1 = new KyoryuCharacter(3);
+				break;
+		}
+		player1.Health = reader.ReadInt32;
+		player1.Meter = reader.ReadInt32;
+		fight.Moves = new Move[2];
+//		fight.Moves[0] = ;
+		
+		CharacterType type2 = (CharacterType)reader.ReadInt32;
+		Character player2;
+		switch(type2) {
+		case CharacterType.AI:
+			player2 = new AIPlayer(5, new KyoryuCharacter);
+			break;
+		case CharacterType.Kyoryu:
+			player2 = new KyoryuCharacter(7);
+			break;
+		}
+		player2.Health = reader.ReadInt32;
+		player2.Meter = reader.ReadInt32;
+		
+		
+		characterGUI [0].SetPlayerMaxHealth (Fighters [0].GetHealth());
+		characterGUI [1].SetPlayerMaxHealth (Fighters [1].GetHealth());
+		
 		return null;
 	}
 
 	public static byte[] ToByteArray( FightDelegate bundle) {
-		return null;
+		MemoryStream stream = new MemoryStream(48);
+		BinaryWriter writer = new BinaryWriter(stream);
+		writer.Write((int)this.type);
+		writer.Write(this.Rounds);
+		writer.Write(this.Turn);
+		Character player1 = this.Fighters[0];
+		writer.Write((int)player1.GetCharacterType);
+		writer.Write(player1.GetHealth);
+		writer.Write(player1.GetMeter);
+		writer.Write(this.Moves[0].GetType);
+		Character player2 = this.Fighters[1];
+		writer.Write((int)player2.GetCharacterType);
+		writer.Write(player2.GetHealth);
+		writer.Write(player2.GetMeter);
+		writer.Write(this.Moves[1].GetType);
+		return stream.GetBuffer();
 	}
 	
 
@@ -49,22 +105,25 @@ public class FightDelegate : MonoBehaviour{
 		if (type == GameType.local) {
 			playerNames = new string[]{"Player 1", "Player 2"};
 			Fighters[0] = new KyoryuCharacter(3);
-			characterGUI [0].SetPlayerMaxHealth (Fighters [0].GetHealth());
 			Fighters[1] = new KyoryuCharacter(7);
-			characterGUI [1].SetPlayerMaxHealth (Fighters [1].GetHealth());
 		}
 		if (type == GameType.ai) {
 			playerNames = new string[]{"Player 1", "Com"};
 			Fighters[0] = new KyoryuCharacter(3);
 			Fighters[1] = new AIPlayer(5, new KyoryuCharacter(7));
-			characterGUI [0].SetPlayerMaxHealth (Fighters [0].GetHealth());
-			characterGUI [1].SetPlayerMaxHealth (Fighters [1].GetHealth());
 		}
-
+		
+		characterGUI [0].SetPlayerMaxHealth (Fighters [0].GetHealth());
+		characterGUI [1].SetPlayerMaxHealth (Fighters [1].GetHealth());
+		
 		characterGUI [0].SetPlayerName(playerNames [0]);
 		characterGUI [1].SetPlayerName(playerNames [1]);
 
 		SetupGUI ();
+	}
+	
+	void StartNetworkGame(TurnBasedMatch match) {
+	
 	}
 
 	public void SetCharacter(int playerNumber, Character character){

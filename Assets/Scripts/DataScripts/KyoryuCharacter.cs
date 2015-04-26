@@ -23,6 +23,13 @@ public class KyoryuCharacter : Character
 	{
 		throw new System.NotImplementedException ();
 	}
+	
+	public override CharacterType GetCharacterType ()
+	{
+		return CharacterType.Kyoryu;
+	}
+	
+	
 
 }
 

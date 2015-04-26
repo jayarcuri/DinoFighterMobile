@@ -43,6 +43,7 @@ public class MultiplayerController {
 			PlayGamesPlatform.Instance.localUser.Authenticate((bool success) => {
 				if (success) {
 					Debug.Log ("We're signed in! Welcome " + PlayGamesPlatform.Instance.localUser.userName);
+					FightDelegate match = new FightDelegate();
 					PlayGamesPlatform.Instance.TurnBased.CreateQuickMatch(MinOpponents, MaxOpponents,
 					                                                      Variant, OnMatchStarted);
 					// We could start our game now

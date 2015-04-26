@@ -24,6 +24,11 @@ public class AIPlayer : Character
 
 		return myCharacter.Moveset [newMove].name;
 	}
+	
+	public override CharacterType GetCharacterType()
+	{
+		return CharacterType.AI;
+	}
 
 	public override void AddMeter(int amount){
 		myCharacter.AddMeter(amount);
