@@ -205,7 +205,6 @@ public class FightDelegate : MonoBehaviour{
 
 		if (Turn == 0) {
 			++Rounds;
-			MyGUI.SummonHistoryFromMoves();	//brings in post-round screen
 			bool P1IsWinner, P2IsWinner;
 			P1IsWinner = P2IsWinner = false;
 			int P1DamageToBeDealt, P2DamageToBeDealt, P1MeterGain, P2MeterGain;
@@ -264,6 +263,8 @@ public class FightDelegate : MonoBehaviour{
 
 			ResultsText[0].text = resultsParagraph1;
 			ResultsText[1].text = resultsParagraph2;
+
+			MyGUI.SummonHistoryFromMoves();	//brings in post-round screen
 		}
 		SetupGUI ();
 	}

@@ -52,81 +52,11 @@ public class GUIViewController : MonoBehaviour
 		//no slide UI stuff
 		MSO_Gameobj.SetActive (false);
 		MHO_Gameobj.SetActive (false);
-		NavButtonOffscreen = new Vector2(0, -NavButtonFrame.rect.height*1.2f);
+		NavButtonOffscreen = new Vector2(0, -NavButtonFrame.rect.height*1.35f);
 		
-	}
-
-	void Update(){
-
-
-
-		/*	if (Input.GetMouseButtonDown (0)) {
-			initialTouchLocation = (Vector2)Input.mousePosition;
-			previousTouchLocation = (Vector2)Input.mousePosition;
-		}
-
-		if (Input.GetMouseButton (0)) {
-
-			if (MoveSelectionOverlay.anchoredPosition.x < RightSideAnchor.x || 
-			    (!AreOverlaysOnscreen() && Input.mousePosition.x - previousTouchLocation.x < 0)) {	//Block for controlling MSO when onscreen
-
-				if (Input.mousePosition.x != previousTouchLocation.x) {
-					MoveSelectionOverlay.anchoredPosition 
-						= new Vector2 (Mathf.Clamp(MoveSelectionOverlay.anchoredPosition.x + (Input.mousePosition.x - previousTouchLocation.x), 0f, RightSideAnchor.x), 0);
-		
-				}
-			}	// Block end
-
-
-			else if (MatchHistoryOverlay.anchoredPosition.x > MHO_Homepoint.x || 
-			    (!AreOverlaysOnscreen() && Input.mousePosition.x - previousTouchLocation.x > 0)) {	//Block for controlling MHO when onscreen
-				
-				if (MatchHistoryOverlay.anchoredPosition.x - 								// Don't let MHO go
-				    (previousTouchLocation.x - Input.mousePosition.x) <= MHO_Homepoint.x){	// past left edge
-					MatchHistoryOverlay.anchoredPosition = MHO_Homepoint;}
-				
-				if (Input.mousePosition.x != previousTouchLocation.x) {
-					MatchHistoryOverlay.anchoredPosition 
-						= new Vector2 (Mathf.Clamp(MatchHistoryOverlay.anchoredPosition.x - 
-							(previousTouchLocation.x - Input.mousePosition.x), MHO_Homepoint.x, 0), 0);
-				}
-			}	// Block end 
-			previousTouchLocation = (Vector2)Input.mousePosition;
-
-		}
-
-		if (Input.GetMouseButtonUp (0)) {
-			initialTouchLocation = Vector2.zero;
-			previousTouchLocation = Vector2.zero;
-			if (MoveSelectionOverlay.anchoredPosition.x < RightSideAnchor.x)
-				TouchEndedAt = new Vector2(MoveSelectionOverlay.anchoredPosition.x, 0);
-			if(MatchHistoryOverlay.anchoredPosition.x > MHO_Homepoint.x)
-				TouchEndedAt = new Vector2(MatchHistoryOverlay.anchoredPosition.x, 0);
-
-			animationStart = Time.time;
-		}
-
-		if (!Input.GetMouseButton (0)) {
-			if (MoveSelectionOverlay.anchoredPosition.x < RightSideAnchor.x){
-				if(MoveSelectionOverlay.anchoredPosition.x < MiddlePoint.x)
-					MoveSelectionOverlay.anchoredPosition = Vector2.Lerp(TouchEndedAt, LeftSideAnchor, Mathf.Clamp(((Time.time-animationStart)/.25f), 0, 1));
-				if(MoveSelectionOverlay.anchoredPosition.x >= MiddlePoint.x)
-					MoveSelectionOverlay.anchoredPosition = Vector2.Lerp(TouchEndedAt, RightSideAnchor, Mathf.Clamp(((Time.time-animationStart)/.25f), 0, 1));
-			}
-
-			if (MatchHistoryOverlay.anchoredPosition.x > MHO_Homepoint.x){
-				if(MatchHistoryOverlay.anchoredPosition.x > MHO_Homepoint.x/2)
-					MatchHistoryOverlay.anchoredPosition = Vector2.Lerp(TouchEndedAt, Vector2.zero, Mathf.Clamp(((Time.time-animationStart)/.25f), 0, 1));
-				if(MatchHistoryOverlay.anchoredPosition.x <= MHO_Homepoint.x/2)
-					MatchHistoryOverlay.anchoredPosition = Vector2.Lerp(TouchEndedAt, MHO_Homepoint, Mathf.Clamp(((Time.time-animationStart)/.25f), 0, 1));
-			}
-
-		}*/
-
-
-
 	}
 	
+
 	private bool AreOverlaysOnscreen(){
 			return (MatchHistoryOverlay.anchoredPosition.x > MHO_Homepoint.x
 			        || MoveSelectionOverlay.anchoredPosition.x < RightSideAnchor.x);

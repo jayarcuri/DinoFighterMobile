@@ -2,13 +2,14 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Fighter_Speedy_Texture_Draft2_1
   m_Shader: {fileID: 4800000, guid: 71ede3cd29be0ab49b6062a2917bb9d9, type: 3}
-  m_ShaderKeywords: []
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
   m_CustomRenderQueue: -1
   m_SavedProperties:
     serializedVersion: 2
@@ -27,7 +28,11 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
-    m_Floats: {}
+    m_Floats:
+      data:
+        first:
+          name: _RimPower
+        second: 1.39999998
     m_Colors:
       data:
         first:
@@ -41,3 +46,7 @@ Material:
         first:
           name: _LColor
         second: {r: .501960814, g: .501960814, b: .501960814, a: 1}
+      data:
+        first:
+          name: _RimColor
+        second: {r: .800000012, g: .800000012, b: .800000012, a: .600000024}
