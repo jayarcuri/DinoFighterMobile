@@ -14,6 +14,8 @@ public class MultiplayerController {
 	
 	private TurnBasedMatch mIncomingMatch;
 	
+	MultiSceneMessenger matchInfo;
+	
 	private MultiplayerController() {
 		PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
 			// enables saving game progress.
@@ -38,12 +40,12 @@ public class MultiplayerController {
 		}
 	}
 	
-	public void SignInAndStartQuickGame() {
+	public void SignInAndStartQuickGame(MultiSceneMessenger info) {
+		matchInfo = info;
 		if (! PlayGamesPlatform.Instance.localUser.authenticated) {
-			PlayGamesPlatform.Instance.localUser.Authenticate((bool success) => {
+			Social.localUser.Authenticate((bool success) => {
 				if (success) {
 					Debug.Log ("We're signed in! Welcome " + PlayGamesPlatform.Instance.localUser.userName);
-					FightDelegate match = new FightDelegate();
 					PlayGamesPlatform.Instance.TurnBased.CreateQuickMatch(MinOpponents, MaxOpponents,
 					                                                      Variant, OnMatchStarted);
 					// We could start our game now
@@ -89,6 +91,9 @@ public class MultiplayerController {
 	void OnMatchStarted(bool success, TurnBasedMatch match) {
 		if (success) {
 			Debug.Log ("Match Started");
+			Debug.Log(match.Participants);
+			matchInfo.matchType = GameType.online;
+			matchInfo.onlineMatch = match;
 			Application.LoadLevel("DinoFighter2");
 //			PlayGamesPlatform.Instance.
 		} else {

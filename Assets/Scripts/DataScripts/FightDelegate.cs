@@ -27,6 +27,7 @@ public class FightDelegate : MonoBehaviour{
 	public Text OperatorText;
 	public GameType type;
 	bool started = false;
+	TurnBasedMatch onlineMatch;
 	
 	public static FightDelegate FromByteArray(Byte[] array) {
 		MemoryStream stream = new MemoryStream(array);
@@ -99,6 +100,8 @@ public class FightDelegate : MonoBehaviour{
 			if (GameObject.Find ("MatchInfo") != null) {	//If the match was set by a former screen, set this match to that type
 				MultiSceneMessenger msm = GameObject.Find ("MatchInfo").GetComponent<MultiSceneMessenger> ();
 					type = msm.matchType;
+				if (type == GameType.online)
+					onlineMatch = msm.onlineMatch;
 			}
 	
 			Moves = new Move[2];
@@ -110,10 +113,21 @@ public class FightDelegate : MonoBehaviour{
 				Fighters[0] = new KyoryuCharacter(3);
 				Fighters[1] = new KyoryuCharacter(7);
 			}
-			if (type == GameType.ai) {
-				playerNames = new string[]{"Player 1", "Com"};
+			else if (type == GameType.ai) {
+				playerNames = new string[]{Social.localUser.userName, "Com"};
 				Fighters[0] = new KyoryuCharacter(3);
 				Fighters[1] = new AIPlayer(5, new KyoryuCharacter(7));
+			}
+			else if (type == GameType.online) {
+				playerNames = new string[]{onlineMatch.Participants[0].DisplayName, onlineMatch.Participants[1].DisplayName};
+				int myId = 0;
+				int theirId = 1;
+				if( onlineMatch.SelfParticipantId != "p_1") {
+					 myId = 1;
+					 theirId = 0;
+				}
+				Fighters[myId] = new KyoryuCharacter(7);
+//				Fighters[theirId] = ;
 			}
 		}
 		
@@ -130,10 +144,6 @@ public class FightDelegate : MonoBehaviour{
 
 	public int GetTurn(){
 		return Turn;
-	}
-	
-	void StartNetworkGame(TurnBasedMatch match) {
-	
 	}
 
 	public void SetCharacter(int playerNumber, Character character){

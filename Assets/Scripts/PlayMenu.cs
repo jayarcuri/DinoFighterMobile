@@ -19,7 +19,7 @@ public class PlayMenu : MonoBehaviour {
 	}
 	
 	public void quickPlay() {
-		MultiplayerController.Instance.SignInAndStartQuickGame();
+		MultiplayerController.Instance.SignInAndStartQuickGame(matchInfo);
 	}
 	
 	public void friendPlay() {
