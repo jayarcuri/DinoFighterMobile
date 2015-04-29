@@ -127,6 +127,10 @@ public class FightDelegate : MonoBehaviour{
 
 		SetupGUI ();
 	}
+
+	public int GetTurn(){
+		return Turn;
+	}
 	
 	void StartNetworkGame(TurnBasedMatch match) {
 	
@@ -146,7 +150,7 @@ public class FightDelegate : MonoBehaviour{
 	}
 
 	
-	private Move YieldCurrentMove(int forCharacter){ //Called internally when a turn is incremented
+	public Move YieldCurrentMove(int forCharacter){ //Called internally when a turn is incremented
 
 		switch (MoveForCurrentTurn) {
 		

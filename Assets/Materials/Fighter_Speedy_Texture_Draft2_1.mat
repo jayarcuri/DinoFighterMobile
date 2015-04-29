@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Fighter_Speedy_Texture_Draft2_1
-  m_Shader: {fileID: 4800000, guid: 71ede3cd29be0ab49b6062a2917bb9d9, type: 3}
+  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
@@ -41,11 +41,11 @@ Material:
       data:
         first:
           name: _SColor
-        second: {r: 0, g: 0, b: 0, a: 1}
+        second: {r: .24864839, g: .310245663, b: .536764741, a: 1}
       data:
         first:
           name: _LColor
-        second: {r: .501960814, g: .501960814, b: .501960814, a: 1}
+        second: {r: .867647052, g: .80956924, b: .657115042, a: 1}
       data:
         first:
           name: _RimColor

@@ -29,4 +29,10 @@ public class Dodge : Move
 			break;
 		}
 	}
+
+	public override void YieldWinResults(out int winDamage, out int damageRange, out int winMeterGain){
+		winDamage = Damage;
+		damageRange = 0;
+		winMeterGain = 0;
+	}
 }

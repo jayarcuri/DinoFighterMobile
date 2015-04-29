@@ -30,5 +30,11 @@ public class Throw : Move
 			break;
 		}
 	}
+
+	public override void YieldWinResults(out int winDamage, out int damageRange, out int winMeterGain){
+		winDamage = Damage;
+		damageRange = DamageRange;
+		winMeterGain = 1;
+	}
 }
 

@@ -23,10 +23,7 @@ public class GUIViewController : MonoBehaviour
 	Vector2 MHO_Homepoint;
 	Vector2 StartPoint;
 	Vector2 NavButtonHome;
-	Vector2 MiddlePoint;
 	Vector2 NavButtonOffscreen;
-	float animationStart;
-	float journeyLength;
 
 	public void SetView(Character character, int turn){
 		burst.interactable = character.GetMeter() > 4;
@@ -45,7 +42,6 @@ public class GUIViewController : MonoBehaviour
 		LeftSideAnchor = new Vector2 (0f, 0);
 		RightSideAnchor = new Vector2 (Screen.width, 0);
 		NavButtonHome = new Vector2 (NavButtonFrame.anchoredPosition.x, NavButtonFrame.anchoredPosition.y);
-		MiddlePoint = new Vector3 (Screen.width / 2, Screen.height / 2);
 		MatchHistoryOverlay.anchoredPosition = 
 		MHO_Homepoint = new Vector2 (-MatchHistoryOverlay.rect.width, 0);
 

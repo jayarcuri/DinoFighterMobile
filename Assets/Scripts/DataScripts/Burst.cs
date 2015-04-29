@@ -19,9 +19,15 @@ public class Burst : Move
 		case MoveSet.Attack:
 		case MoveSet.Throw:
 			outDamage = 0;
-			MeterGain = -5;
+			MeterGain = -4;
 			winner = true;
 			break;
 		}
+	}
+
+	public override void YieldWinResults(out int winDamage, out int damageRange, out int winMeterGain){
+		winDamage = 0;
+		damageRange = 0;
+		winMeterGain = 1;
 	}
 }

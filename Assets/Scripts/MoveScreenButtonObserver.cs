@@ -46,13 +46,4 @@ public class MoveScreenButtonObserver : MonoBehaviour {
 	}
 
 
-/*	void addButton(Button newButton){
-
-	}
-
-void removeButton(Button unsubButton){
-
-}*/
-
-
 }
