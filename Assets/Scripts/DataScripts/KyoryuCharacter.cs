@@ -15,7 +15,7 @@ public class KyoryuCharacter : Character
 		//seed needed to induce actual randomness for variable attacks
 		Meter = 0;
 		Health = 100;
-		Moveset = new Move[]{new Attack(20, 5, seed), new Defend(), new Dodge(45), new Throw(15, 10, seed), 
+		Moveset = new Move[]{new Attack(20, 5, seed), new Defend(), new Dodge(19), new Throw(15, 10, seed), 
 			new Burst(), new KyoryuSuper(25, 10, seed)};
 	}
 

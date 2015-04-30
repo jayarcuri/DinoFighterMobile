@@ -23,8 +23,6 @@ public class WinScreenViewController : MonoBehaviour {
 							+ "Rounds: " + turns;
 		characterBars [0].anchoredPosition = new Vector2 (Screen.width * .08f, -Screen.height * .525f);
 		characterBars [1].anchoredPosition = new Vector2 (-Screen.width * .08f, -Screen.height * .525f);
-		
-		matchInfo = new MultiSceneMessenger();
 	}
 	
 	public void MainMenu() {
@@ -32,7 +30,6 @@ public class WinScreenViewController : MonoBehaviour {
 	}
 	
 	public void Rematch() {
-		matchInfo.matchType = fight.type;
 		Application.LoadLevel("DinoFighter2");
 	}
 
