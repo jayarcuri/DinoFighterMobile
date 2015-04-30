@@ -28,6 +28,7 @@ public class FightDelegate : MonoBehaviour{
 	public GameType type;
 	bool started = false;
 	TurnBasedMatch onlineMatch;
+	bool onlineIsPlayer1;
 	
 	public static FightDelegate FromByteArray(Byte[] array) {
 		MemoryStream stream = new MemoryStream(array);
@@ -126,6 +127,7 @@ public class FightDelegate : MonoBehaviour{
 					 myId = 1;
 					 theirId = 0;
 				}
+				onlineIsPlayer1 = (myId == 0);
 				Fighters[myId] = new KyoryuCharacter(7);
 //				Fighters[theirId] = ;
 			}
@@ -205,19 +207,20 @@ public class FightDelegate : MonoBehaviour{
 			++Turn;
 			Turn = Turn % 2;
 		} 
-
-		if(type == GameType.ai) {
+		else if(type == GameType.ai) {
 			Moves[0] = YieldCurrentMove(0);
 			MoveForCurrentTurn = Fighters[1].GetMoveName();
 			Moves[1] = YieldCurrentMove(1);
+		}
+		else if(type == GameType.online) {
+		
 		}
 
 
 		if (Turn == 1) {
 			BetweenTurnPopup.SetActive(true);
 		}
-
-		if (Turn == 0) {
+		else if (Turn == 0) {
 			++Rounds;
 			bool P1IsWinner, P2IsWinner;
 			P1IsWinner = P2IsWinner = false;

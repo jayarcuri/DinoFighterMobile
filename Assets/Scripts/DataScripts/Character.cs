@@ -44,6 +44,17 @@ public virtual void AddMeter(int amount){
 	public virtual void UseBurst(){
 		HasUsedBurst = true;
 	}
+	
+	public Move GetMove(MoveSet type){
+		switch(type) {
+		case MoveSet.Attack: GetAttack();
+		case MoveSet.Burst: GetBurst();
+		case MoveSet.Defend: GetDefend();
+		case MoveSet.Dodge: GetDodge();
+		case MoveSet.Super: GetSuper();
+		case MoveSet.Throw: GetThrow();
+		}
+	}
 
 	public Move GetAttack(){
 		return Moveset [(int)MoveSet.Attack];
