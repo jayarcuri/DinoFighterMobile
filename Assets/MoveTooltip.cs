@@ -35,7 +35,7 @@ public class MoveTooltip : MonoBehaviour {
 			moveValueTypes [0].text = "Damage";
 			moveValues [1].text = winMeter.ToString();
 			moveValues [1].color = moveColors [1];
-			moveValueTypes [1].text = "Meter";
+			moveValueTypes [1].text = "FossilFuel";
 		} else if (winDamage > 0) {
 			if (dmgSpread > 0) {
 				moveValues [0].text = winDamage + "-" + (winDamage+dmgSpread);
@@ -51,7 +51,7 @@ public class MoveTooltip : MonoBehaviour {
 		} else if (winMeter > 0) {
 			moveValues [0].text = winMeter.ToString();
 			moveValues [0].color = moveColors [1];
-			moveValueTypes [0].text = "Meter";
+			moveValueTypes [0].text = "FossilFuel";
 			moveValues[1].text = "";
 			moveValueTypes[1].text = "";
 		}

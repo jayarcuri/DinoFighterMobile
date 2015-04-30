@@ -10,10 +10,9 @@ public class WinScreenViewController : MonoBehaviour {
 	MultiSceneMessenger matchInfo;
 	public FightDelegate fight;
 
-	void Start(){
-	}
 
 	public void GameOver(string winner, int turns){
+		print ("was called");
 		gameObject.GetComponent<RectTransform> ().anchoredPosition = Vector2.zero;
 		WinnerText.text = winner + " won!!!";
 

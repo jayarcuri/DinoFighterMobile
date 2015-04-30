@@ -6,7 +6,7 @@ public class MoveScreenButtonObserver : MonoBehaviour {
 
 	Button[] listeners;
 	Image[] listenerApperances;
-	Color defaultColor;
+	public Color defaultColor;
 	public Color nonselectedColor;
 	
 
@@ -19,7 +19,7 @@ public class MoveScreenButtonObserver : MonoBehaviour {
 			listeners[i] = temp[i].GetComponent<Button>();
 			listenerApperances [i] = temp[i].GetComponent<Image> ();
 		}
-		defaultColor = listeners [0].colors.normalColor;
+		//defaultColor = listeners [0].colors.normalColor;
 	}
 
 	public void buttonClickedEvent(Button callingButton){
@@ -31,7 +31,7 @@ public class MoveScreenButtonObserver : MonoBehaviour {
 			}
 			else if(listeners[i].IsInteractable()){
 				ColorBlock cb = listeners[i].colors;
-				cb.normalColor = defaultColor;
+				cb.normalColor = Color.white;
 				listeners[i].colors = cb;
 			}
 		}

@@ -27,7 +27,7 @@ public class FightDelegate : MonoBehaviour{
 	public Text OperatorText;
 	public GameType type;
 	bool started = false;
-//	TurnBasedMatch onlineMatch;
+	//	TurnBasedMatch onlineMatch;
 	
 	public static FightDelegate FromByteArray(Byte[] array) {
 		MemoryStream stream = new MemoryStream(array);
@@ -39,17 +39,17 @@ public class FightDelegate : MonoBehaviour{
 		CharacterType type1 = (CharacterType)reader.ReadInt32();
 		Character player1 = null;
 		switch(type1) {
-//			case CharacterType.AI:
-//				player1 = new AIPlayer();
-//				break;
-			case CharacterType.Kyoryu:
-				player1 = new KyoryuCharacter(3);
-				break;
+			//			case CharacterType.AI:
+			//				player1 = new AIPlayer();
+			//				break;
+		case CharacterType.Kyoryu:
+			player1 = new KyoryuCharacter(3);
+			break;
 		}
 		player1.Health = reader.ReadInt32();
 		player1.Meter = reader.ReadInt32();
 		fight.Moves = new Move[2];
-//		fight.Moves[0] = player1.GetMoveName;
+		//		fight.Moves[0] = player1.GetMoveName;
 		
 		CharacterType type2 = (CharacterType)reader.ReadInt32();
 		Character player2 = null;
@@ -73,7 +73,7 @@ public class FightDelegate : MonoBehaviour{
 		
 		return fight;
 	}
-
+	
 	public static byte[] ToByteArray( FightDelegate bundle) {
 		MemoryStream stream = new MemoryStream(48);
 		BinaryWriter writer = new BinaryWriter(stream);
@@ -92,6 +92,13 @@ public class FightDelegate : MonoBehaviour{
 		writer.Write((int) bundle.Moves[1].MoveType);
 		return stream.GetBuffer();
 	}
+
+	void Update(){
+		if(Input.GetKeyDown(KeyCode.A)){
+			characterGUI[0].UpdateStatus(101, 1);
+			Fighters[0].TakeDamage(101);
+		}
+	}
 	
 
 	void Start(){
@@ -99,11 +106,11 @@ public class FightDelegate : MonoBehaviour{
 		if(!started) {
 			if (GameObject.Find ("MatchInfo") != null) {	//If the match was set by a former screen, set this match to that type
 				MultiSceneMessenger msm = GameObject.Find ("MatchInfo").GetComponent<MultiSceneMessenger> ();
-					type = msm.matchType;
-//				if (type == GameType.online)
-//					onlineMatch = msm.onlineMatch;
+				type = msm.matchType;
+				//				if (type == GameType.online)
+				//					onlineMatch = msm.onlineMatch;
 			}
-	
+
 			Moves = new Move[2];
 			Turn = 0;
 			Fighters = new Character[2];
@@ -288,11 +295,17 @@ public class FightDelegate : MonoBehaviour{
 	}
 
 	public void SomeoneWon(){
-		if (Fighters [0].Health == 0 && Fighters [1].Health == 0) {
+		print ("Called");
+		print (Fighters [0].GetHealth());
+		print (Fighters [1].GetHealth());
+
+		if (Fighters [0].GetHealth() <= 0 && Fighters [1].GetHealth() <= 0) {
 			gameOverScreen.GameOver("No one", Rounds);
-		} else if (Fighters [0].Health == 0) {
+		} 
+		else if (Fighters [0].GetHealth() <= 0) {
 			gameOverScreen.GameOver("Player 2", Rounds);
-		} else if (Fighters [1].Health == 0) {
+		} 
+		else if (Fighters [1].GetHealth() <= 0) {
 			gameOverScreen.GameOver("Player 1", Rounds);
 		}
 
