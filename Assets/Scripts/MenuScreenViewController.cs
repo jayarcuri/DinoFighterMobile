@@ -9,8 +9,10 @@ public class MenuScreenViewController : MonoBehaviour {
 	public RectTransform[] characterBars;
 	MultiSceneMessenger matchInfo;
 	public bool showing = false;
+	public FightDelegate fight;
 
 	void Start(){
+		matchInfo = new MultiSceneMessenger();
 	}
 
 	public void LoadMenu(){
@@ -25,7 +27,6 @@ public class MenuScreenViewController : MonoBehaviour {
 //			characterBars [0].anchoredPosition = new Vector2 (Screen.width * .08f, -Screen.height * .525f);
 //			characterBars [1].anchoredPosition = new Vector2 (-Screen.width * .08f, -Screen.height * .525f);
 		
-		matchInfo = GameObject.Find ("MatchInfo").GetComponent<MultiSceneMessenger>();
 	}
 	
 	public void CloseMenu() {
@@ -37,7 +38,7 @@ public class MenuScreenViewController : MonoBehaviour {
 	}
 	
 	public void Rematch() {
-		matchInfo.matchType = GameType.ai;
+		matchInfo.matchType = fight.type;
 		Application.LoadLevel("DinoFighter2");
 	}
 

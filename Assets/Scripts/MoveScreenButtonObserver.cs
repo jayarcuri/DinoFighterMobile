@@ -37,12 +37,7 @@ public class MoveScreenButtonObserver : MonoBehaviour {
 		}
 	}
 	
-	void onGUI() {
-		Event e = Event.current;
-		if(e.keyCode == KeyCode.Escape) {
-		
-		}
-	}
+	
 
 	public void resetButtonColors(){
 		foreach (Button listener in listeners) {
