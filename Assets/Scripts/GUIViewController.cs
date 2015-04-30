@@ -1,10 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-//using GooglePlayGames;
 
-public class GUIViewController : MonoBehaviour
-{
+public class GUIViewController : MonoBehaviour {
 	public Button super;
 	public Button burst;
 	public Text turnText;
@@ -50,6 +48,15 @@ public class GUIViewController : MonoBehaviour
 		MHO_Gameobj.SetActive (false);
 		NavButtonOffscreen = new Vector2(0, -NavButtonFrame.rect.height*1.35f);
 		
+	}
+	
+	void Update() {
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			if(MatchHistoryOverlay.anchoredPosition.x > MHO_Homepoint.x)
+				SummonMainFromHistory();
+			if(MoveSelectionOverlay.anchoredPosition.x < RightSideAnchor.x)
+				SummonMainFromMoves();
+		}
 	}
 	
 

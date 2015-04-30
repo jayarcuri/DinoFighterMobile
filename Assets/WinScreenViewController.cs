@@ -7,6 +7,7 @@ public class WinScreenViewController : MonoBehaviour {
 	public Text WinnerText;
 	public Text RoundStats;
 	public RectTransform[] characterBars;
+	MultiSceneMessenger matchInfo;
 
 	void Start(){
 	}
@@ -22,6 +23,17 @@ public class WinScreenViewController : MonoBehaviour {
 							+ "Rounds: " + turns;
 		characterBars [0].anchoredPosition = new Vector2 (Screen.width * .08f, -Screen.height * .525f);
 		characterBars [1].anchoredPosition = new Vector2 (-Screen.width * .08f, -Screen.height * .525f);
+		
+		matchInfo = GameObject.Find ("MatchInfo").GetComponent<MultiSceneMessenger>();
+	}
+	
+	public void MainMenu() {
+		Application.LoadLevel("MainMenu");
+	}
+	
+	public void Rematch() {
+		matchInfo.matchType = GameType.ai;
+		Application.LoadLevel("DinoFighter2");
 	}
 
 }
