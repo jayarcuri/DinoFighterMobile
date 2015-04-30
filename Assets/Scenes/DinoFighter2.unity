@@ -5178,6 +5178,7 @@ MonoBehaviour:
   NavButtonFrame: {fileID: 223923496}
   MSO_Gameobj: {fileID: 2026011430}
   MHO_Gameobj: {fileID: 684785356}
+  menu: {fileID: 330378866}
 --- !u!114 &1317055956
 MonoBehaviour:
   m_ObjectHideFlags: 0

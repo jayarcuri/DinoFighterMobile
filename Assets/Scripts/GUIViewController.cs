@@ -15,6 +15,8 @@ public class GUIViewController : MonoBehaviour {
 	public GameObject MHO_Gameobj;
 	RectTransform MoveSelectionOverlay;
 	RectTransform MatchHistoryOverlay;
+	
+	public MenuScreenViewController menu;
 
 	Vector2 LeftSideAnchor;		//Following variables used in GUI move animations
 	Vector2 RightSideAnchor;
@@ -56,6 +58,8 @@ public class GUIViewController : MonoBehaviour {
 				SummonMainFromHistory();
 			if(MoveSelectionOverlay.anchoredPosition.x < RightSideAnchor.x)
 				SummonMainFromMoves();
+			if(menu.showing) 
+				menu.CloseMenu();
 		}
 	}
 
