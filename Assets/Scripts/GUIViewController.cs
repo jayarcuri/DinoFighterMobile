@@ -58,7 +58,7 @@ public class GUIViewController : MonoBehaviour {
 				SummonMainFromMoves();
 		}
 	}
-	
+
 
 	private bool AreOverlaysOnscreen(){
 			return (MatchHistoryOverlay.anchoredPosition.x > MHO_Homepoint.x
