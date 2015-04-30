@@ -28,7 +28,7 @@ PlayerSettings:
   m_MobileMTRendering: 0
   m_UseDX11: 1
   m_Stereoscopic3D: 0
-  iosShowActivityIndicatorOnLoading: -1
+  iosShowActivityIndicatorOnLoading: 2
   androidShowActivityIndicatorOnLoading: 2
   iosAppInBackgroundBehavior: 0
   displayResolutionDialog: 2
@@ -125,9 +125,9 @@ PlayerSettings:
   AndroidSplashScreenScale: 0
   AndroidKeystoreName: /Users/charles/obscure-systems.keystore
   AndroidKeyaliasName: andoid_release_key
-  AndroidTVCompatibility: 1
+  AndroidTVCompatibility: 0
   AndroidIsGame: 1
-  androidEnableBanner: 1
+  androidEnableBanner: 0
   m_AndroidBanners:
   - width: 320
     height: 180

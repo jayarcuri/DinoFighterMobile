@@ -114,7 +114,7 @@ public class FightDelegate : MonoBehaviour{
 				Fighters[1] = new KyoryuCharacter(7);
 			}
 			else if (type == GameType.ai) {
-				playerNames = new string[]{Social.localUser.userName, "Com"};
+				playerNames = new string[]{"You", "Comp"};
 				Fighters[0] = new KyoryuCharacter(3);
 				Fighters[1] = new AIPlayer(5, new KyoryuCharacter(7));
 			}
