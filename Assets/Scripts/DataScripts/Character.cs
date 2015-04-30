@@ -30,7 +30,7 @@ public virtual void AddMeter(int amount){
 	}
 
 	public virtual void TakeDamage(int dmg){
-		Health -= dmg;
+		Health = Health - dmg;
 	}
 
 	public virtual int GetHealth(){
