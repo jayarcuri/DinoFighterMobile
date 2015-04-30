@@ -5,7 +5,7 @@ using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using UnityEngine.UI;
-using GooglePlayGames.BasicApi.Multiplayer;
+//using GooglePlayGames.BasicApi.Multiplayer;
 
 [Serializable]
 public class FightDelegate : MonoBehaviour{
@@ -27,7 +27,7 @@ public class FightDelegate : MonoBehaviour{
 	public Text OperatorText;
 	public GameType type;
 	bool started = false;
-	TurnBasedMatch onlineMatch;
+//	TurnBasedMatch onlineMatch;
 	
 	public static FightDelegate FromByteArray(Byte[] array) {
 		MemoryStream stream = new MemoryStream(array);
@@ -100,8 +100,8 @@ public class FightDelegate : MonoBehaviour{
 			if (GameObject.Find ("MatchInfo") != null) {	//If the match was set by a former screen, set this match to that type
 				MultiSceneMessenger msm = GameObject.Find ("MatchInfo").GetComponent<MultiSceneMessenger> ();
 					type = msm.matchType;
-				if (type == GameType.online)
-					onlineMatch = msm.onlineMatch;
+//				if (type == GameType.online)
+//					onlineMatch = msm.onlineMatch;
 			}
 	
 			Moves = new Move[2];
@@ -118,17 +118,17 @@ public class FightDelegate : MonoBehaviour{
 				Fighters[0] = new KyoryuCharacter(3);
 				Fighters[1] = new AIPlayer(5, new KyoryuCharacter(7));
 			}
-			else if (type == GameType.online) {
-				playerNames = new string[]{onlineMatch.Participants[0].DisplayName, onlineMatch.Participants[1].DisplayName};
-				int myId = 0;
-				int theirId = 1;
-				if( onlineMatch.SelfParticipantId != "p_1") {
-					 myId = 1;
-					 theirId = 0;
-				}
-				Fighters[myId] = new KyoryuCharacter(7);
-//				Fighters[theirId] = ;
-			}
+//			else if (type == GameType.online) {
+//				playerNames = new string[]{onlineMatch.Participants[0].DisplayName, onlineMatch.Participants[1].DisplayName};
+//				int myId = 0;
+//				int theirId = 1;
+//				if( onlineMatch.SelfParticipantId != "p_1") {
+//					 myId = 1;
+//					 theirId = 0;
+//				}
+//				Fighters[myId] = new KyoryuCharacter(7);
+////				Fighters[theirId] = ;
+//			}
 		}
 		
 		BetweenTurnPopup.SetActive (false);

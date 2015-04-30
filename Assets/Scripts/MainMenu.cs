@@ -3,10 +3,10 @@ using System.Collections;
 
 public class MainMenu : MonoBehaviour {
 
-	// Use this for initialization
-	void Awake () {
-		MultiplayerController.Instance.TrySignIn();
-//		MultiplayerController.Instance.TrySilentSignIn();
+	MultiSceneMessenger matchInfo;
+	
+	void Start(){
+		matchInfo = GameObject.Find ("MatchInfo").GetComponent<MultiSceneMessenger>();
 	}
 	
 	// Update is called once per frame
@@ -23,7 +23,17 @@ public class MainMenu : MonoBehaviour {
 	}
 	
 	public void continueGame() {
-		MultiplayerController.Instance.ShowSelectUI();
+//		MultiplayerController.Instance.ShowSelectUI();
+	}
+	
+	public void aiPlay() {
+		matchInfo.matchType = GameType.ai;
+		Application.LoadLevel("DinoFighter2");
+	}
+	
+	public void localPlay() {
+		matchInfo.matchType = GameType.local;
+		Application.LoadLevel("DinoFighter2");
 	}
 	
 	

@@ -6,7 +6,7 @@ public class PlayMenu : MonoBehaviour {
 	MultiSceneMessenger matchInfo;
 
 	void Awake () {
-		MultiplayerController.Instance.TrySilentSignIn ();
+//		MultiplayerController.Instance.TrySilentSignIn ();
 	}
 
 	void Start(){
@@ -19,7 +19,7 @@ public class PlayMenu : MonoBehaviour {
 	}
 	
 	public void quickPlay() {
-		MultiplayerController.Instance.SignInAndStartQuickGame(matchInfo);
+//		MultiplayerController.Instance.SignInAndStartQuickGame(matchInfo);
 	}
 	
 	public void friendPlay() {

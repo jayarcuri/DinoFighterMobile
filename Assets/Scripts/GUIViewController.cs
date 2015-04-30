@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using GooglePlayGames;
+//using GooglePlayGames;
 
 public class GUIViewController : MonoBehaviour
 {
@@ -34,7 +34,7 @@ public class GUIViewController : MonoBehaviour
 	void Awake(){
 		MoveSelectionOverlay = MSO_Gameobj.GetComponent<RectTransform> ();
 		MatchHistoryOverlay = MHO_Gameobj.GetComponent<RectTransform> ();
-		MultiplayerController.Instance.TrySilentSignIn();
+//		MultiplayerController.Instance.TrySilentSignIn();
 	}
 
 	void Start(){
