@@ -26,7 +26,7 @@ public class MoveTooltip : MonoBehaviour {
 
 		if (winDamage > 0 && winMeter > 0) {
 			if (dmgSpread > 0) {
-				moveValues [0].text = winDamage + "-" + dmgSpread;
+				moveValues [0].text = winDamage + "-" + (winDamage+dmgSpread);
 				moveValues [0].color = moveColors [0];
 			} else {
 				moveValues [0].text = winDamage.ToString();
@@ -38,7 +38,7 @@ public class MoveTooltip : MonoBehaviour {
 			moveValueTypes [1].text = "Meter";
 		} else if (winDamage > 0) {
 			if (dmgSpread > 0) {
-				moveValues [0].text = winDamage + "-" + dmgSpread;
+				moveValues [0].text = winDamage + "-" + (winDamage+dmgSpread);
 				moveValues [0].color = moveColors [0];
 			} else {
 				moveValues [0].text = winDamage.ToString();
