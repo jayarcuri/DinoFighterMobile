@@ -8,12 +8,6 @@ public class RexPuppet : CharacterPuppet
 	public Transform HomeSpike;
 	public Transform AttackClashSpike;
 	public Transform MidpointSpike;
-	
-	void Start ()
-	{
-		//characterHolder = gameObject.GetComponent<Transform> ();
-		//characterAnimations = gameObject.GetComponentInChildren<Animation> ();
-	}
 
 	public override IEnumerator Attack (string winLoseOrClash){
 		switch (winLoseOrClash) {

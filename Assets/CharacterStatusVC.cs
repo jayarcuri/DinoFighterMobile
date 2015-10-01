@@ -13,9 +13,8 @@ public class CharacterStatusVC : MonoBehaviour {
 	float playerMaxHealth;
 	float currentPlayerHealth;
 	float currentPlayerMeter = 0;
-	// Use this for initialization
+
 	void Start () {
-		//	fDelegate = GameObject.Find ("Main Camera").GetComponent<FightDelegate>();
 		if(!isPlayer2)
 		meterBar.anchorMax = new Vector3 (0, 1);
 		else
@@ -56,7 +55,5 @@ public class CharacterStatusVC : MonoBehaviour {
 
 		if (healthPercentage.text == "0%")
 			fDelegate.SomeoneWon ();
-		else
-			print ("Fuck this shit");
 }
 }

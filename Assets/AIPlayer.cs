@@ -45,14 +45,6 @@ public class AIPlayer : Character
 	public override int GetHealth(){
 		return myCharacter.GetHealth();
 	}
-	
-/*	public override bool HasBurst(){
-		return myCharacter.HasBurst();
-	}
-	
-	public override void UseBurst(){
-		myCharacter.UseBurst();
-	}*/
 
 }
 
